@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "203273242513",
+    "firebase_url": "https://car-rent-it.firebaseio.com",
+    "project_id": "car-rent-it",
+    "storage_bucket": "car-rent-it.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:203273242513:android:4237c35db4555677fa3c30",
+        "android_client_info": {
+          "package_name": "tientranzt.github.io.cart_rent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "203273242513-omflobhn88sgk1qehd5f0nfnlrsudant.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAo-c4vP6WCX6_R_757nd3dHjha8iH7-Mg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "203273242513-omflobhn88sgk1qehd5f0nfnlrsudant.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
