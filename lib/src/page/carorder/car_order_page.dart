@@ -24,6 +24,7 @@ class _CarOrderState extends State<CarOrder> {
       initialIndex: currentTabBarIndex,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Color(0xffF0EFF4),
             appBar: TabBar(
               indicatorColor: Color(0xffFF9600),
               onTap: (index) {

@@ -11,8 +11,13 @@ Widget carOrderItem({int index, String image, String desc, String title}) {
             builder: (context) {
               return AlertDialog(
                 contentPadding: EdgeInsets.all(0),
+                backgroundColor: Colors.transparent,
                 content: Container(
                   width: MediaQuery.of(context).size.width - 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.white
+                  ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -75,7 +80,7 @@ Widget carOrderItem({int index, String image, String desc, String title}) {
                         padding: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 15),
                         child: Text(
-                          desc * 50,
+                          desc * 25,
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 14,

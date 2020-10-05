@@ -8,43 +8,46 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
-    var sameWidth = MediaQuery.of(context).size.width * 0.1;
-    print(sameWidth);
     return Scaffold(
+        backgroundColor: Color(0xffF0EFF4),
         appBar: AppBar(
-          backgroundColor: Colors.grey[50],
+          backgroundColor: Colors.white,
+          elevation: 0,
+          titleSpacing: 2,
           leading: GestureDetector(
               onTap: () {},
               child: Container(
-                width: 40,
-                height: 40,
-                margin: EdgeInsets.all(5),
+                width: 50,
+                height: 50,
                 decoration: BoxDecoration(
-                    color: Colors.grey, shape: BoxShape.circle, boxShadow: []),
+                    color: Colors.transparent, shape: BoxShape.circle),
+                child: Image.asset("assets/images/account1.jpg"),
               )),
-          title: Column(
-            children: [
-              Text(
-                "Nguyen Minh Tri",
-                style: TextStyle(
-                    color: Colors.black, decorationColor: Colors.grey),
-                semanticsLabel: "",
-
-              ),
-              Text(
-                "Người dùng mới",
-                style: TextStyle(color: Colors.black),
-              ),
-            ],
+          title: Container(
+            padding: EdgeInsets.all(0),
+            margin: EdgeInsets.all(0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Nguyen Minh Tri",
+                  style: TextStyle(color: Colors.black87, fontSize: 15),
+                  semanticsLabel: "",
+                ),
+                Text(
+                  "Người dùng mới",
+                  style: TextStyle(color: Colors.black87, fontSize: 14),
+                ),
+              ],
+            ),
           ),
           actions: [
             Center(
                 child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "icon",
-                style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              child: Icon(
+                Icons.ac_unit,
+                color: Colors.orange,
               ),
             ))
           ],
@@ -52,101 +55,22 @@ class _AccountPageState extends State<AccountPage> {
         body: Column(
           children: [
             Container(
-              color: Colors.black,
+              margin: EdgeInsets.only(top: 15),
+              color: Colors.white,
               width: MediaQuery.of(context).size.width,
-              height: 3,
+              child: Column(
+                children: [
+                  Text("reward"),
+                  Text("thôn tin tài khoản"),
+                  Text("Lịch sử"),
+                  Text("Đăng xuất"),
+                ],
+              ),
             )
           ],
-        )
-
-        // Container(
-        //   child: Row(
-        //     children: List.generate(
-        //         10,
-        //         (index) => Column(
-        //               mainAxisAlignment: MainAxisAlignment.center,
-        //               children: [
-        //                 Container(
-        //                   width: sameWidth,
-        //                 )
-        //               ],
-        //             )),
-        //   ),
-        // ),
-        );
+        ));
   }
 }
-
-//  column 1 : width: 86.4 height: auto
-
-// Container(
-//     child: Row(
-//   children: [
-//     Image.asset(
-//       "assets/images/account1.jpg",
-//       width: 50,
-//       height: 50,
-//     ),
-//     Column(
-//       children: [
-//         Text("Nguyen Minh Tri"),
-//         Text("Khách hàng mới"),
-//       ],
-//     ),
-//     Expanded(
-//       child: Icon(Icons.favorite),
-//     )
-//   ],
-// )),
-// Container(
-//   padding: EdgeInsets.all(15),
-//   child: Column(
-//     crossAxisAlignment: CrossAxisAlignment.start,
-//     children: [
-//       Text("* Điểm thưởng"),
-//       Text("* Thông tin tài khoản"),
-//       Text("* Lịch sử"),
-//     ],
-//   ),
-// ),
-// FlatButton(
-//   child: Text("đăng xuất"),
-//   onPressed: () {
-//     print("logout");
-//   },
-// ),
-// Container(
-//   child: Row(
-//     children: [
-//       Row(
-//         children: [
-//           Container(
-//             child: Text("Dong 1"),
-//           )
-//         ],
-//       ),
-//       // row 2
-//       Row(
-//         children: [
-//           Row(
-//             children: [
-//               Text("Điểm thưởng"),
-//               Text("Thông tin tài khoản"),
-//               Text("Lịch sử"),
-//             ],
-//           )
-//         ],
-//       ),
-//       Row(
-//         children: [
-//           Container(
-//             child: Text("Dong 3"),
-//           )
-//         ],
-//       ),
-//     ],
-//   ),
-// )
 
 class ColumnCustom extends StatelessWidget {
   @override
