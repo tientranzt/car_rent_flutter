@@ -25,7 +25,7 @@ class _Car5PageState extends State<Car5Page> {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        getCarList(collections: "car5").then((listCarType) => {
+        await getCarList(collections: "car5").then((listCarType) => {
               setState(() {
                 listCar5 = listCarType;
               })

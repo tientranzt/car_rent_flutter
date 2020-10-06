@@ -10,6 +10,8 @@ Widget carOrderItem({int index, String image, String desc, String title}) {
             context: context,
             builder: (context) {
               return AlertDialog(
+                elevation: 10,
+                scrollable: true,
                 contentPadding: EdgeInsets.all(0),
                 backgroundColor: Colors.transparent,
                 content: Container(
@@ -80,7 +82,7 @@ Widget carOrderItem({int index, String image, String desc, String title}) {
                         padding: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 15),
                         child: Text(
-                          desc * 25,
+                          desc,
                           style: TextStyle(
                               color: Colors.grey,
                               fontSize: 14,
