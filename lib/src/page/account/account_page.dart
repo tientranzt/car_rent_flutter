@@ -1,3 +1,4 @@
+import 'package:cart_rent/src/page/account/subpageaccount/history_order_page.dart';
 import 'package:flutter/material.dart';
 
 class AccountPage extends StatefulWidget {
@@ -10,8 +11,8 @@ class _AccountPageState extends State<AccountPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-  }
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -132,7 +133,7 @@ class _AccountPageState extends State<AccountPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => Center(
-                                      child: Text("Lịch sử đặt xe"),
+                                      child: HistoryOrderPage(),
                                     )));
                       },
                       child: Padding(
@@ -157,6 +158,7 @@ class _AccountPageState extends State<AccountPage> {
             ),
             Material(
               color: Color(0xffF0EFF4),
+
               child: InkWell(
                 onTap: () {},
                 child: Row(

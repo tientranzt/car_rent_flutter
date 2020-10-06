@@ -21,44 +21,12 @@ class _HomePageState extends State<HomePage> {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   Map<String, List<CarInfo>> mapCarInfo = {};
   bool isEnableShimmer = true;
-  double containerWidth = 280;
-  double containerHeight = 15;
-  // StreamController<String> streamController = StreamController();
-
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   super.dispose();
-  //   streamController.close();
-  // }
 
   @override
   void initState() {
     super.initState();
     fetchCarByCategory();
-    // Stream<String> stream = Stream.fromFuture(getData());
-    //
-    // stream.listen((event) {
-    //   print(event);
-    // }, onDone: () {
-    //   print("task done");
-    // }, onError: (err) {
-    //   print(err);
-    // });
-
-    // streamController.stream.listen((data) {
-    //   print(data);
-    // });
-
-    // streamController.add("hello");
-    // streamController.sink.add("hello");
   }
-
-  // Future<String> getData() async {
-  //   await Future.delayed(Duration(seconds: 5));
-  //   print("fetch data");
-  //   return "test data string";
-  // }
 
   fetchCarByCategory() {
     mapCarInfo = {};
@@ -163,154 +131,152 @@ class _HomePageState extends State<HomePage> {
       }
       return
 
-        // isEnableShimmer
-        //   ? Padding(
-        //       padding: EdgeInsets.symmetric(horizontal: 15),
-        //       child: Shimmer.fromColors(
-        //           highlightColor: Colors.white,
-        //           baseColor: Colors.grey[300],
-        //           child: Container(
-        //             margin: EdgeInsets.symmetric(vertical: 7),
-        //             child: Column(
-        //               crossAxisAlignment: CrossAxisAlignment.start,
-        //               children: [
-        //                 Container(
-        //                   height: 120,
-        //                   width: 210,
-        //                   decoration: BoxDecoration(
-        //                       color: Colors.grey,
-        //                       borderRadius: BorderRadius.circular(12)),
-        //                 ),
-        //                 SizedBox(
-        //                   height: 10,
-        //                 ),
-        //                 Container(
-        //                   width: 200,
-        //                   height: 15,
-        //                   decoration: BoxDecoration(
-        //                       color: Colors.grey,
-        //                       borderRadius: BorderRadius.circular(12)),
-        //                 ),
-        //                 SizedBox(
-        //                   height: 10,
-        //                 ),
-        //                 Container(
-        //                   width: 180,
-        //                   height: 15,
-        //                   decoration: BoxDecoration(
-        //                       color: Colors.grey,
-        //                       borderRadius: BorderRadius.circular(12)),
-        //                 ),
-        //                 SizedBox(
-        //                   height: 30,
-        //                 ),
-        //                 Container(
-        //                   width: 100,
-        //                   height: 40,
-        //                   decoration: BoxDecoration(
-        //                       color: Colors.grey,
-        //                       borderRadius: BorderRadius.circular(25)),
-        //                 ),
-        //               ],
-        //             ),
-        //           )))
-        //   :
+          // isEnableShimmer
+          //   ? Padding(
+          //       padding: EdgeInsets.symmetric(horizontal: 15),
+          //       child: Shimmer.fromColors(
+          //           highlightColor: Colors.white,
+          //           baseColor: Colors.grey[300],
+          //           child: Container(
+          //             margin: EdgeInsets.symmetric(vertical: 7),
+          //             child: Column(
+          //               crossAxisAlignment: CrossAxisAlignment.start,
+          //               children: [
+          //                 Container(
+          //                   height: 120,
+          //                   width: 210,
+          //                   decoration: BoxDecoration(
+          //                       color: Colors.grey,
+          //                       borderRadius: BorderRadius.circular(12)),
+          //                 ),
+          //                 SizedBox(
+          //                   height: 10,
+          //                 ),
+          //                 Container(
+          //                   width: 200,
+          //                   height: 15,
+          //                   decoration: BoxDecoration(
+          //                       color: Colors.grey,
+          //                       borderRadius: BorderRadius.circular(12)),
+          //                 ),
+          //                 SizedBox(
+          //                   height: 10,
+          //                 ),
+          //                 Container(
+          //                   width: 180,
+          //                   height: 15,
+          //                   decoration: BoxDecoration(
+          //                       color: Colors.grey,
+          //                       borderRadius: BorderRadius.circular(12)),
+          //                 ),
+          //                 SizedBox(
+          //                   height: 30,
+          //                 ),
+          //                 Container(
+          //                   width: 100,
+          //                   height: 40,
+          //                   decoration: BoxDecoration(
+          //                       color: Colors.grey,
+          //                       borderRadius: BorderRadius.circular(25)),
+          //                 ),
+          //               ],
+          //             ),
+          //           )))
+          //   :
 
-      GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => DetailPage(
-                              title: title,
-                              image: image,
-                              description: description,
-                            )));
-              },
-              child: Container(
-                  margin: EdgeInsets.only(left: 15, top: 3, bottom: 2),
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15),
-                      boxShadow: [
-                        BoxShadow(color: Colors.grey, blurRadius: 3)
-                      ]),
-                  width: 250,
-                  height: 300,
+          GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => DetailPage(
+                        title: title,
+                        image: image,
+                        description: description,
+                      )));
+        },
+        child: Container(
+            margin: EdgeInsets.only(left: 15, top: 3, bottom: 2),
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 3)]),
+            width: 250,
+            height: 300,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(15),
+                      topRight: Radius.circular(15)),
+                  child: Image.network(
+                    image,
+                    fit: BoxFit.cover,
+                    height: 150,
+                    width: 250,
+                    isAntiAlias: true,
+                    color: Color.fromRGBO(0, 0, 0, 0.1),
+                    colorBlendMode: BlendMode.darken,
+                    semanticLabel: "what the duck",
+                    filterQuality: FilterQuality.high,
+                    alignment: Alignment.center,
+                    repeat: ImageRepeat.noRepeat,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(15)),
-                        child: Image.network(
-                          image,
-                          fit: BoxFit.cover,
-                          height: 150,
-                          width: 250,
-                          isAntiAlias: true,
-                          color: Color.fromRGBO(0, 0, 0, 0.1),
-                          colorBlendMode: BlendMode.darken,
-                          semanticLabel: "what the duck",
-                          filterQuality: FilterQuality.high,
-                          alignment: Alignment.center,
-                          repeat: ImageRepeat.noRepeat,
-                        ),
+                      Text(
+                        title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500),
                       ),
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              title,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text(
-                              des,
-                              maxLines: 3,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(wordSpacing: 3),
-                              textAlign: TextAlign.start,
-                            ),
-                            SizedBox(
-                              height: 8,
-                            ),
-                            OutlineButton(
-                              borderSide: BorderSide(color: Color(0xffF2B248)),
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(25)),
-                              onPressed: () {
-                                // Navigator.pushNamed(context, DetailPage.route, );
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => DetailPage(
-                                              title: title,
-                                              image: image,
-                                              description: description,
-                                            )));
-                              },
-                              child: Text(
-                                "Chi tiết xe",
-                                style: TextStyle(color: Color(0xffF2B248)),
-                              ),
-                            )
-                          ],
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        des,
+                        maxLines: 3,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(wordSpacing: 3),
+                        textAlign: TextAlign.start,
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      OutlineButton(
+                        borderSide: BorderSide(color: Color(0xffF2B248)),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25)),
+                        onPressed: () {
+                          // Navigator.pushNamed(context, DetailPage.route, );
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => DetailPage(
+                                        title: title,
+                                        image: image,
+                                        description: description,
+                                      )));
+                        },
+                        child: Text(
+                          "Chi tiết xe",
+                          style: TextStyle(color: Color(0xffF2B248)),
                         ),
                       )
                     ],
-                  )),
-            );
+                  ),
+                )
+              ],
+            )),
+      );
     }
 
     return SingleChildScrollView(

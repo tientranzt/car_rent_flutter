@@ -49,8 +49,7 @@ class _TruckPageState extends State<TruckPage> {
               index: index,
               image: listTruck[index].image,
               desc: listTruck[index].desc,
-              title: listTruck[index].car_title
-          );
+              title: listTruck[index].car_title);
         },
         itemCount: listTruck.length,
       ),
