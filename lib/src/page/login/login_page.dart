@@ -1,4 +1,5 @@
 import 'package:cart_rent/src/page/home/home_page.dart';
+import 'package:cart_rent/src/page/login/forgotpass/forgot_password_page.dart';
 import 'package:cart_rent/src/page/signup/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,14 +15,14 @@ class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
 
-  bool isKeyboardVisible(){
+  bool isKeyboardVisible() {
     return MediaQuery.of(context).viewInsets.bottom == 0.0;
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
@@ -47,7 +48,8 @@ class _LoginPageState extends State<LoginPage> {
                         padding: EdgeInsets.only(top: 10, left: 25, bottom: 20),
                         child: Text("Nhập tài khoản để đăng nhập")),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                       child: TextField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -61,7 +63,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                       child: TextField(
                         controller: passController,
                         decoration: InputDecoration(
@@ -78,7 +81,10 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, ForgotPasswordPage.route);
+                          },
                           child: Container(
                             padding: EdgeInsets.only(top: 10, bottom: 10),
                             child: Text(
@@ -96,8 +102,8 @@ class _LoginPageState extends State<LoginPage> {
                           onTap: () {
                             Navigator.push(context,
                                 MaterialPageRoute(builder: (context) {
-                                  return SignupPage();
-                                }));
+                              return SignupPage();
+                            }));
                           },
                           child: Container(
                             padding: EdgeInsets.only(top: 10, bottom: 10),
@@ -118,13 +124,12 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
               ),
-
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
                   margin: EdgeInsets.only(
                       bottom: MediaQuery.of(context).orientation ==
-                          Orientation.portrait
+                              Orientation.portrait
                           ? 10
                           : 5),
                   width: MediaQuery.of(context).size.width - 80,
@@ -143,7 +148,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-
             ],
           ),
         ),

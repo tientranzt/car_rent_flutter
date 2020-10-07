@@ -1,5 +1,6 @@
 import 'package:cart_rent/src/page/detail/detail_page.dart';
 import 'package:cart_rent/src/page/home/home_page.dart';
+import 'package:cart_rent/src/page/login/forgotpass/forgot_password_page.dart';
 import 'package:cart_rent/src/page/login/login_page.dart';
 import 'package:cart_rent/src/page/signup/signup.dart';
 import 'package:flutter/cupertino.dart';
@@ -40,6 +41,7 @@ class _MyAppState extends State<MyApp> {
         DetailPage.route: (context) => DetailPage(),
         LoginPage.route: (context) => LoginPage(),
         SignupPage.route: (context) => SignupPage(),
+        ForgotPasswordPage.route : (context) => ForgotPasswordPage()
       },
       initialRoute: LoginPage.route,
       debugShowCheckedModeBanner: false,
