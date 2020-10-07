@@ -5,11 +5,19 @@ import 'package:cart_rent/src/page/signup/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MyApp());
+}
+
+void config() {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    // DeviceOrientation.landscapeRight
+  ]);
 }
 
 class MyApp extends StatefulWidget {
@@ -24,8 +32,9 @@ class _MyAppState extends State<MyApp> {
   }
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    config();
 
+    return MaterialApp(
       routes: {
         HomePage.route : (context) => HomePage(),
         DetailPage.route: (context) => DetailPage(),
