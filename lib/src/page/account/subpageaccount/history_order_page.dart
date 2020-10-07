@@ -12,33 +12,37 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
       child: Column(
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Text("app bar"),
+              Icon(
+                Icons.arrow_back_ios,
+                color: Colors.white,
+                size: 12,
+              ),
+              Text(
+                "Lịch sủ đặt hàng",
+                style: TextStyle(fontSize: 14),
+              ),
             ],
           ),
           SizedBox(
-            height: 0,
+            height: 50,
           ),
           Container(
-            child: Text("hình ảnh"),
+            child: Image.asset("assets/images/order_car4.png"),
           ),
-          SizedBox(
-            height: 100,
+          Text(
+            "Bạn chưa có lịch sử đặt xe",
+            style: TextStyle(fontSize: 14),
           ),
-          Container(
-            child: Center(
-              child: Text("lịch sử đặt xe"),
-            ),
-          ),
-          SizedBox(
-            height: 12,
-          ),
-          Container(
-            child: Center(
-              child: Text("nút nhấn"),
-            ),
-          ),
+          FlatButton(
+            onPressed: () {},
+            child: Text("Đặt xe ngay"),
+            minWidth: 300,
+            color: Colors.white,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+          )
         ],
       ),
     );
