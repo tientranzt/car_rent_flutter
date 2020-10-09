@@ -54,12 +54,21 @@ class _LoginPageState extends State<LoginPage> {
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                            hintText: "Email của bạn",
-                            border: OutlineInputBorder(
+                          hintText: "Email của bạn",
+                          border: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.orange,
+                                width: 2,
+                              ),
                               borderRadius: const BorderRadius.all(
                                 const Radius.circular(10.0),
-                              ),
-                            )),
+                              )),
+                        ),
                       ),
                     ),
                     Container(
@@ -68,12 +77,21 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextField(
                         controller: passController,
                         decoration: InputDecoration(
-                            hintText: "Mật khẩu của bạn",
-                            border: OutlineInputBorder(
+                          hintText: "Mật khẩu của bạn",
+                          border: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.orange,
+                                width: 2,
+                              ),
                               borderRadius: const BorderRadius.all(
                                 const Radius.circular(10.0),
-                              ),
-                            )),
+                              )),
+                        ),
                         obscureText: true,
                       ),
                     ),
@@ -132,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                               Orientation.portrait
                           ? 10
                           : 5),
-                  width: MediaQuery.of(context).size.width - 80,
+                  width: MediaQuery.of(context).size.width - 60,
                   height: 45,
                   child: FlatButton(
                     shape: RoundedRectangleBorder(

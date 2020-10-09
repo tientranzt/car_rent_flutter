@@ -16,7 +16,7 @@ class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
@@ -47,44 +47,74 @@ class _SignupPageState extends State<SignupPage> {
                         padding: EdgeInsets.only(top: 10, left: 25, bottom: 20),
                         child: Text("Nhập thông tin để đăng ký")),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                       child: TextField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
-                            hintText: "Email của bạn",
-                            border: OutlineInputBorder(
+                          hintText: "Email của bạn",
+                          border: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.orange,
+                                width: 2,
+                              ),
                               borderRadius: const BorderRadius.all(
                                 const Radius.circular(10.0),
-                              ),
-                            )),
+                              )),
+                        ),
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                       child: TextField(
                         controller: passController,
                         decoration: InputDecoration(
-                            hintText: "Mật khẩu của bạn",
-                            border: OutlineInputBorder(
+                          hintText: "Mật khẩu của bạn",
+                          border: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.orange,
+                                width: 2,
+                              ),
                               borderRadius: const BorderRadius.all(
                                 const Radius.circular(10.0),
-                              ),
-                            )),
+                              )),
+                        ),
                         obscureText: true,
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                       child: TextField(
                         controller: passConfirmController,
                         decoration: InputDecoration(
-                            hintText: "Xác nhận mật khẩu",
-                            border: OutlineInputBorder(
+                          hintText: "Xác nhận mật khẩu",
+                          border: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.orange,
+                                width: 2,
+                              ),
                               borderRadius: const BorderRadius.all(
                                 const Radius.circular(10.0),
-                              ),
-                            )),
+                              )),
+                        ),
                         obscureText: true,
                       ),
                     ),
@@ -103,10 +133,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
-                    onPressed: () {
-                      print(emailController.text);
-                      print(passController.text);
-                    },
+                    onPressed: () {},
                     color: Colors.orange,
                     child: Text(
                       "Đăng ký",
