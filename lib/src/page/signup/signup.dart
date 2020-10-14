@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:email_validator/email_validator.dart';
 
 class SignupPage extends StatefulWidget {
   static const String route = "signup";
@@ -12,6 +14,25 @@ class _SignupPageState extends State<SignupPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController passConfirmController = TextEditingController();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+  void showAlertDialog({String message}) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text("Thông báo đăng ký"),
+            content: Text(message),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Thoát"))
+            ],
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,9 +155,51 @@ class _SignupPageState extends State<SignupPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                     onPressed: () {
-                      print(emailController.text);
-                      print(passController.text);
-                      print(passConfirmController.text);
+                      bool isEmailValid =
+                          EmailValidator.validate(emailController.text);
+                      bool isPassLengthValid = passController.text.length >= 6;
+                      bool isPassConfirmValid =
+                          passController.text == passConfirmController.text;
+                      String userEmail = emailController.text;
+                      String userPass = passController.text;
+
+                      if (!isEmailValid) {
+                        showAlertDialog(message: "Email không hợp lệ");
+                      }
+
+                      if (!isPassLengthValid) {
+                        showAlertDialog(
+                            message: "Mật khẩu cần lớn hơn 6 kí tự");
+                      }
+
+                      if (!isPassConfirmValid) {
+                        showAlertDialog(
+                            message: "Xác nhận mật khẩu không trùng");
+                      }
+
+                      if (isEmailValid &&
+                          isPassConfirmValid &&
+                          isPassLengthValid) {
+                        firebaseAuth
+                            .createUserWithEmailAndPassword(
+                                email: userEmail, password: userPass)
+                            .then((user) {
+                              emailController.text = "";
+                              passController.text = "";
+                              passConfirmController.text = "";
+
+                              Navigator.pop(context);
+
+                        })
+                            .catchError((err) {
+                          print(err.hashCode.runtimeType);
+                          if (err.hashCode == 86194409) {
+                            showAlertDialog(message: "Email đã tồn tại");
+                          } else {
+                            showAlertDialog(message: "Lỗi mạng không xác định");
+                          }
+                        });
+                      }
                     },
                     color: Colors.orange,
                     child: Text(

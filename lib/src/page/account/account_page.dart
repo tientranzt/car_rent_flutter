@@ -3,13 +3,14 @@ import 'package:cart_rent/src/page/account/subpageaccount/account_rewards_page.d
 import 'package:cart_rent/src/page/account/subpageaccount/history_order_page.dart';
 import 'package:cart_rent/src/page/login/login_page.dart';
 import 'package:flutter/material.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 class AccountPage extends StatefulWidget {
   @override
   _AccountPageState createState() => _AccountPageState();
 }
 
 class _AccountPageState extends State<AccountPage> {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   @override
   void initState() {
     // TODO: implement initState
@@ -147,7 +148,12 @@ class _AccountPageState extends State<AccountPage> {
               color: Color(0xffF0EFF4),
               child: InkWell(
                 onTap: () {
-                  Navigator.pushReplacementNamed(context, LoginPage.route);
+                  firebaseAuth.signOut().then((value) {
+                    Navigator.pushReplacementNamed(context, LoginPage.route);
+                  }).catchError((err){
+                    print(err);
+                  });
+
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

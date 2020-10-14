@@ -10,6 +10,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   @override
   void initState() {
     super.initState();
@@ -37,6 +39,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     config();
+    bool isLogin = firebaseAuth.currentUser == null;
 
     return MaterialApp(
       routes: {
@@ -49,7 +52,7 @@ class _MyAppState extends State<MyApp> {
         HistoryOrderPage.route : (context) => HistoryOrderPage(),
         AccountRewardsPage.route : (context) => AccountRewardsPage(),
       },
-      initialRoute: LoginPage.route,
+      initialRoute: isLogin ? LoginPage.route : HomePage.route,
       debugShowCheckedModeBanner: false,
       title: 'Car Rent',
     );

@@ -3,6 +3,7 @@ import 'package:cart_rent/src/page/login/forgotpass/forgot_password_page.dart';
 import 'package:cart_rent/src/page/signup/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginPage extends StatefulWidget {
   static const String route = "login";
@@ -14,9 +15,35 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  bool isKeyboardVisible() {
-    return MediaQuery.of(context).viewInsets.bottom == 0.0;
+  void showAlertDialog({String message}) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(
+              "Thông báo đăng nhập",
+              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+            ),
+            content: Text(
+              message,
+              style: TextStyle(
+                fontSize: 13,
+              ),
+            ),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Thoát",
+                      style: TextStyle(
+                        fontSize: 12,
+                      )))
+            ],
+          );
+        });
   }
 
   @override
@@ -133,12 +160,6 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ],
                     ),
-                    // SizedBox(
-                    //   height: MediaQuery.of(context).orientation ==
-                    //       Orientation.portrait
-                    //       ? 90
-                    //       : 10,
-                    // ),
                   ],
                 ),
               ),
@@ -156,7 +177,29 @@ class _LoginPageState extends State<LoginPage> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
                     onPressed: () {
-                      Navigator.pushReplacementNamed(context, HomePage.route);
+                      String userEmail = emailController.text;
+                      String userPass = passController.text;
+
+                      firebaseAuth
+                          .signInWithEmailAndPassword(
+                              email: userEmail, password: userPass)
+                          .then((user) {
+                        print(user);
+                        Navigator.pushReplacementNamed(context, HomePage.route);
+                      }).catchError((err) {
+                        print(err);
+                        print(err.hashCode);
+                        if (err.hashCode == 218430393) {
+                          showAlertDialog(message: "Mật khẩu hỏng có đúng");
+                        } else if (err.hashCode == 246276089) {
+                          showAlertDialog(message: "Email hỏng có đúng");
+                        } else if (err.hashCode == 849834254) {
+                          showAlertDialog(
+                              message: "Tài khoản mật khẩu không được trống");
+                        } else {
+                          showAlertDialog(message: "Lỗi mạng không xác định");
+                        }
+                      });
                     },
                     color: Colors.orange,
                     child: Text(
