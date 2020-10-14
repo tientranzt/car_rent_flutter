@@ -21,7 +21,7 @@ class _SignupPageState extends State<SignupPage> {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text("Thông báo đăng ký"),
+            title: Text("Thông báo"),
             content: Text(message),
             actions: [
               FlatButton(
@@ -187,8 +187,10 @@ class _SignupPageState extends State<SignupPage> {
                               emailController.text = "";
                               passController.text = "";
                               passConfirmController.text = "";
+                              print(user);
 
-                              Navigator.pop(context);
+
+                              // Navigator.pop(context);
 
                         })
                             .catchError((err) {

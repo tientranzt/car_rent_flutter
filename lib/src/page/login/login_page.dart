@@ -23,8 +23,7 @@ class _LoginPageState extends State<LoginPage> {
         builder: (context) {
           return AlertDialog(
             title: Text(
-              "Thông báo đăng nhập",
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+              "Thông báo",
             ),
             content: Text(
               message,
@@ -37,10 +36,9 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text("Thoát",
-                      style: TextStyle(
-                        fontSize: 12,
-                      )))
+                  child: Text(
+                    "Thoát",
+                  ))
             ],
           );
         });
@@ -190,9 +188,9 @@ class _LoginPageState extends State<LoginPage> {
                         print(err);
                         print(err.hashCode);
                         if (err.hashCode == 218430393) {
-                          showAlertDialog(message: "Mật khẩu hỏng có đúng");
+                          showAlertDialog(message: "Mật khẩu không đúng");
                         } else if (err.hashCode == 246276089) {
-                          showAlertDialog(message: "Email hỏng có đúng");
+                          showAlertDialog(message: "Email không đúng");
                         } else if (err.hashCode == 849834254) {
                           showAlertDialog(
                               message: "Tài khoản mật khẩu không được trống");
