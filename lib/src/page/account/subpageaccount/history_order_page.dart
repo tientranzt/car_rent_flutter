@@ -1,70 +1,43 @@
 import 'package:flutter/material.dart';
 
 class HistoryOrderPage extends StatefulWidget {
+  static const String route = "historyAccount";
   @override
   _HistoryOrderPageState createState() => _HistoryOrderPageState();
 }
 
 class _HistoryOrderPageState extends State<HistoryOrderPage> {
-  Widget renderLayout({double size}) {
-    if (size > 35) {
-      return Container(
-          width: size,
-          height: size,
-          decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: Colors.red,
-                width: 5,
-              )));
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    return
-    
-      Scaffold(
-      body: Center(child: renderLayout(size: 70)),
+    return Scaffold(
+      backgroundColor: Color(0xffF0EFF4),
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 2,
+        iconTheme: IconThemeData(color: Colors.black),
+        title: Text("Lịch sử đặt xe", style: TextStyle(color: Colors.black, fontSize: 15),),
+        centerTitle: true,
+      ),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.only(top: 50, left: 50, right: 50),
+            child: Image.asset("assets/images/order_car4.png", fit: BoxFit.cover,),
+          ),
+          Container(
+            child: Text("Bạn chưa có lịch sử đặt xe"),
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 50, left: 50, right: 50),            width: double.infinity,
+            child: FlatButton(
+              color: Colors.orange,
+              onPressed: (){},
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+              child: Text("Đặt xe ngay", style: TextStyle(color: Colors.white),),
+            ),
+          )
+        ],
+      ),
     );
-
-    //   SafeArea(
-    //   child: Column(
-    //     children: [
-    //       Row(
-    //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-    //         children: [
-    //           Icon(
-    //             Icons.arrow_back_ios,
-    //             color: Colors.white,
-    //             size: 12,
-    //           ),
-    //           Text(
-    //             "Lịch sủ đặt hàng",
-    //             style: TextStyle(fontSize: 14),
-    //           ),
-    //         ],
-    //       ),
-    //       SizedBox(
-    //         height: 50,
-    //       ),
-    //       Container(
-    //         child: Image.asset("assets/images/order_car4.png"),
-    //       ),
-    //       Text(
-    //         "Bạn chưa có lịch sử đặt xe",
-    //         style: TextStyle(fontSize: 14),
-    //       ),
-    //       FlatButton(
-    //         onPressed: () {},
-    //         child: Text("Đặt xe ngay"),
-    //         minWidth: 300,
-    //         color: Colors.white,
-    //         shape:
-    //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-    //       )
-    //     ],
-    //   ),
-    // );
   }
 }

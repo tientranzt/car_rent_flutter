@@ -1,3 +1,5 @@
+import 'package:cart_rent/src/page/account/subpageaccount/account_info_page.dart';
+import 'package:cart_rent/src/page/account/subpageaccount/account_rewards_page.dart';
 import 'package:cart_rent/src/page/account/subpageaccount/history_order_page.dart';
 import 'package:cart_rent/src/page/login/login_page.dart';
 import 'package:flutter/material.dart';
@@ -49,16 +51,6 @@ class _AccountPageState extends State<AccountPage> {
               ],
             ),
           ),
-          actions: [
-            Center(
-                child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.ac_unit,
-                color: Colors.orange,
-              ),
-            ))
-          ],
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,9 +69,7 @@ class _AccountPageState extends State<AccountPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Center(
-                                      child: Text("Rewards"),
-                                    )));
+                                builder: (context) => AccountRewardsPage()));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -105,9 +95,7 @@ class _AccountPageState extends State<AccountPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Center(
-                                      child: Text("Thông tin người dùng"),
-                                    )));
+                                builder: (context) => AccountInfoPage()));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -133,9 +121,7 @@ class _AccountPageState extends State<AccountPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Center(
-                                      child: HistoryOrderPage(),
-                                    )));
+                                builder: (context) => HistoryOrderPage()));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),

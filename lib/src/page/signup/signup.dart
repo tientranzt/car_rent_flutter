@@ -133,7 +133,11 @@ class _SignupPageState extends State<SignupPage> {
                   child: FlatButton(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(25)),
-                    onPressed: () {},
+                    onPressed: () {
+                      print(emailController.text);
+                      print(passController.text);
+                      print(passConfirmController.text);
+                    },
                     color: Colors.orange,
                     child: Text(
                       "Đăng ký",
