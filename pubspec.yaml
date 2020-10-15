@@ -20,6 +20,7 @@ dependencies:
   shimmer: ^1.1.1
   google_maps_flutter: ^1.0.2
   email_validator: ^1.0.6
+  image_picker: ^0.6.7+12
 
 
 dev_dependencies:

@@ -4,6 +4,7 @@ import 'package:cart_rent/src/page/account/subpageaccount/history_order_page.dar
 import 'package:cart_rent/src/page/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
 class AccountPage extends StatefulWidget {
   @override
   _AccountPageState createState() => _AccountPageState();
@@ -11,29 +12,30 @@ class AccountPage extends StatefulWidget {
 
 class _AccountPageState extends State<AccountPage> {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
+
+  void updateUI(){
+    setState(() {
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    print(mounted);
+    String name = firebaseAuth.currentUser.displayName.split("%")[0];
+
     return Scaffold(
         backgroundColor: Color(0xffF0EFF4),
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 0,
           titleSpacing: 2,
-          leading: GestureDetector(
-              onTap: () {},
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                    color: Colors.transparent, shape: BoxShape.circle),
-                child: Image.asset("assets/images/account1.jpg"),
-              )),
+          leading: Container(
+            width: 50,
+            height: 50,
+            decoration: BoxDecoration(
+                color: Colors.transparent, shape: BoxShape.circle),
+            child: Image.asset("assets/images/account1.jpg"),
+          ),
           title: Container(
             padding: EdgeInsets.all(0),
             margin: EdgeInsets.all(0),
@@ -41,7 +43,9 @@ class _AccountPageState extends State<AccountPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Nguyen Minh Tri",
+                  name == null
+                      ? firebaseAuth.currentUser.email
+                      : name,
                   style: TextStyle(
                       color: Colors.black87, fontSize: 15, wordSpacing: 2),
                 ),
@@ -96,7 +100,7 @@ class _AccountPageState extends State<AccountPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AccountInfoPage()));
+                                builder: (context) => AccountInfoPage(updateUi: updateUI,)));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -150,10 +154,9 @@ class _AccountPageState extends State<AccountPage> {
                 onTap: () {
                   firebaseAuth.signOut().then((value) {
                     Navigator.pushReplacementNamed(context, LoginPage.route);
-                  }).catchError((err){
+                  }).catchError((err) {
                     print(err);
                   });
-
                 },
                 child: Row(
                   mainAxisSize: MainAxisSize.min,

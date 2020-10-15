@@ -1,15 +1,53 @@
+import 'dart:io';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AccountInfoPage extends StatefulWidget {
   static const String route = "accountInfo";
+  final Function updateUi;
+
+  AccountInfoPage({this.updateUi});
 
   @override
   _AccountInfoPageState createState() => _AccountInfoPageState();
 }
 
 class _AccountInfoPageState extends State<AccountInfoPage> {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  TextEditingController nameController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
+  PickedFile _imageFile;
+  final picker = ImagePicker();
+
+  Future pickImage() async {
+    // final pickedFile = await picker.getImage(source: ImageSource.gallery);
+    //
+    // setState(() {
+    //   _imageFile = File(pickedFile.path);
+    // });
+    await picker.getImage(source: ImageSource.gallery).then((image) {
+      setState(() {
+        _imageFile = image;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    String name = "";
+    String date = "";
+    String phone = "";
+    if (firebaseAuth.currentUser.displayName != null) {
+      String fullString = firebaseAuth.currentUser.displayName;
+      name = fullString.split("%")[0];
+      date = fullString.split("%")[1];
+      phone = fullString.split("%")[2];
+    }
     return Scaffold(
       backgroundColor: Color(0xffF0EFF4),
       appBar: AppBar(
@@ -25,10 +63,21 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             padding: EdgeInsets.only(bottom: 20),
             child: Column(
               children: [
-                Image.asset(
-                  "assets/images/account1.jpg",
-                  height: 100,
-                  width: 100,
+                GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                            height: 300,
+                          );
+                        });
+                  },
+                  child: Image.asset(
+                    "assets/images/account1.jpg",
+                    height: 100,
+                    width: 100,
+                  ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -60,7 +109,116 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                       color: Colors.black, fontWeight: FontWeight.bold),
                 ),
                 FlatButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      print(firebaseAuth.currentUser.displayName);
+
+                      nameController.text = name;
+                      dateController.text = date;
+                      phoneController.text = phone;
+
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return StatefulBuilder(builder: (context, state) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(12),
+                                        topRight: Radius.circular(12))),
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 30, vertical: 8),
+                                      child: TextField(
+                                        controller: nameController,
+                                        decoration: InputDecoration(
+                                            // enabledBorder: UnderlineInputBorder(
+                                            //     borderSide: BorderSide(
+                                            //         color: Colors.orange,
+                                            //         width: 1)),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.orange,
+                                                    width: 1)),
+                                            hintText:
+                                                name == "" ? "Tên" : name),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 30, vertical: 8),
+                                      child: TextField(
+                                        controller: dateController,
+                                        keyboardType: TextInputType.datetime,
+                                        decoration: InputDecoration(
+                                            // enabledBorder: UnderlineInputBorder(
+                                            //     borderSide: BorderSide(
+                                            //         color: Colors.orange,
+                                            //         width: 1)),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.orange,
+                                                    width: 1)),
+                                            hintText: date == ""
+                                                ? "Ngày sinh"
+                                                : date),
+                                      ),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 30, vertical: 8),
+                                      child: TextField(
+                                        controller: phoneController,
+                                        keyboardType: TextInputType.phone,
+                                        decoration: InputDecoration(
+                                            // enabledBorder: UnderlineInputBorder(
+                                            //     borderSide: BorderSide(
+                                            //         color: Colors.orange,
+                                            //         width: 1)),
+                                            focusedBorder: UnderlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    color: Colors.orange,
+                                                    width: 1)),
+                                            hintText: phone == ""
+                                                ? "Số điện thoại"
+                                                : phone),
+                                      ),
+                                    ),
+                                    Container(
+                                        padding: EdgeInsets.all(20),
+                                        child: FlatButton(
+                                            color: Colors.orange,
+                                            onPressed: () {
+                                              String nameDatePhone =
+                                                  nameController.text +
+                                                      "%" +
+                                                      dateController.text +
+                                                      "%" +
+                                                      phoneController.text;
+
+                                              firebaseAuth.currentUser
+                                                  .updateProfile(
+                                                      displayName:
+                                                          nameDatePhone)
+                                                  .then((value) {
+                                                print("update info success");
+                                                setState(() {});
+                                              }).catchError((err) {
+                                                print(err);
+                                              });
+                                            },
+                                            child: Text(
+                                              "Cập nhật",
+                                              style: TextStyle(
+                                                  color: Colors.white),
+                                            )))
+                                  ],
+                                ),
+                              );
+                            });
+                          });
+                    },
                     child: Text("Đổi",
                         style: TextStyle(
                             color: Colors.blue, fontWeight: FontWeight.bold)))
@@ -76,30 +234,65 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Tên", style: TextStyle(color: Colors.grey),),
-                    SizedBox(height: 3,),
-                    Text("Nguyen Minh Tri"),
+                    Text(
+                      "Tên",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    SizedBox(
+                      height: 3,
+                    ),
+                    Text(name == "" ? "Tên hiển thị" : name),
                   ],
                 ),
                 Divider(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Sinh nhật", style: TextStyle(color: Colors.grey),),
-                    SizedBox(height: 3,),
-                    Text("01/01/1987"),
+                    Text(
+                      "Sinh nhật",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    SizedBox(
+                      height: 3,
+                    ),
+                    Text(date == "" ? "Ngày sinh của bạn" : date),
                   ],
                 ),
                 Divider(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Số điện thoại", style: TextStyle(color: Colors.grey),),
-                    SizedBox(height: 3,),
-                    Text("0946124142"),
+                    Text(
+                      "Số điện thoại",
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    SizedBox(
+                      height: 3,
+                    ),
+                    Text(phone == "" ? "Số điện thoại của bạn" : phone),
                   ],
                 ),
-
+              ],
+            ),
+          ),
+          Row(
+            children: [
+              FlatButton(
+                  onPressed: () {
+                    pickImage();
+                  },
+                  child: Text("Tải ảnh lên"))
+            ],
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+            child: Row(
+              children: [
+                Image.asset(
+                  "assets/images/car1.jpg",
+                  height: 70,
+                  width: 70,
+                )
               ],
             ),
           )
