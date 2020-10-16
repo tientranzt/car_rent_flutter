@@ -190,7 +190,7 @@ class _SignupPageState extends State<SignupPage> {
                               print(user);
 
 
-                              // Navigator.pop(context);
+                              Navigator.pop(context);
 
                         })
                             .catchError((err) {

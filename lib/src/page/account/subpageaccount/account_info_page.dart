@@ -85,6 +85,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     String name = "";
     String date = "";
     String phone = "";
+    print("accout info");
     if (firebaseAuth.currentUser.displayName != null) {
       String fullString = firebaseAuth.currentUser.displayName;
       name = fullString.split("%")[0];
@@ -319,7 +320,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             ),
             Container(
                 padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-                child: Wrap(
+                child:
+                Wrap(
                   alignment: WrapAlignment.start,
                   children: listUrlImageString
                       .map((e) => Container(

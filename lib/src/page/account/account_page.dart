@@ -21,7 +21,13 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     print(mounted);
-    String name = firebaseAuth.currentUser.displayName.split("%")[0];
+    String name = "" ;
+    if(firebaseAuth.currentUser.displayName != null) {
+      name = firebaseAuth.currentUser.displayName.split("%")[0];
+    }
+    else{
+      name = firebaseAuth.currentUser.email;
+    }
 
     return Scaffold(
         backgroundColor: Color(0xffF0EFF4),

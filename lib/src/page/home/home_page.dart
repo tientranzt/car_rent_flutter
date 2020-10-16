@@ -5,6 +5,7 @@ import 'package:cart_rent/src/page/detail/detail_page.dart';
 import 'package:cart_rent/src/page/store/store_page.dart';
 import 'package:cart_rent/src/page/account/account_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
@@ -21,6 +22,7 @@ class _HomePageState extends State<HomePage> {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   Map<String, List<CarInfo>> mapCarInfo = {};
   bool isEnableShimmer = true;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
   void initState() {
@@ -280,6 +282,13 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
+    String name = "" ;
+    if(firebaseAuth.currentUser.displayName != null) {
+      name = firebaseAuth.currentUser.displayName.split("%")[0];
+    }
+    else{
+      name = firebaseAuth.currentUser.email;
+    }
     return SingleChildScrollView(
       padding: EdgeInsets.only(bottom: 10),
       child: Column(
@@ -301,7 +310,7 @@ class _HomePageState extends State<HomePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Minh Tri Nguyen",
+                        name,
                         style: TextStyle(color: Colors.black, fontSize: 14),
                       ),
                       Row(
