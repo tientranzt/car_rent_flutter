@@ -52,12 +52,13 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: Scaffold(
         body: SafeArea(
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Align(
-                alignment: Alignment.topCenter,
-                child: Column(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 100,
+                ),
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
@@ -160,10 +161,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
+                SizedBox(height: 50,),
+                Container(
                   margin: EdgeInsets.only(
                       bottom: MediaQuery.of(context).orientation ==
                               Orientation.portrait
@@ -206,8 +205,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
