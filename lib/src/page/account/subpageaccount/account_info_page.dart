@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,18 +20,13 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController dateController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
-  PickedFile _imageFile;
+  File _imageFile;
   final picker = ImagePicker();
 
   Future pickImage() async {
-    // final pickedFile = await picker.getImage(source: ImageSource.gallery);
-    //
-    // setState(() {
-    //   _imageFile = File(pickedFile.path);
-    // });
     await picker.getImage(source: ImageSource.gallery).then((image) {
       setState(() {
-        _imageFile = image;
+        _imageFile = File(image.path);
       });
     });
   }
@@ -111,7 +105,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 FlatButton(
                     onPressed: () {
                       print(firebaseAuth.currentUser.displayName);
-
                       nameController.text = name;
                       dateController.text = date;
                       phoneController.text = phone;
@@ -133,10 +126,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                       child: TextField(
                                         controller: nameController,
                                         decoration: InputDecoration(
-                                            // enabledBorder: UnderlineInputBorder(
-                                            //     borderSide: BorderSide(
-                                            //         color: Colors.orange,
-                                            //         width: 1)),
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: Colors.orange,
@@ -152,10 +141,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                         controller: dateController,
                                         keyboardType: TextInputType.datetime,
                                         decoration: InputDecoration(
-                                            // enabledBorder: UnderlineInputBorder(
-                                            //     borderSide: BorderSide(
-                                            //         color: Colors.orange,
-                                            //         width: 1)),
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: Colors.orange,
@@ -172,10 +157,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                         controller: phoneController,
                                         keyboardType: TextInputType.phone,
                                         decoration: InputDecoration(
-                                            // enabledBorder: UnderlineInputBorder(
-                                            //     borderSide: BorderSide(
-                                            //         color: Colors.orange,
-                                            //         width: 1)),
                                             focusedBorder: UnderlineInputBorder(
                                                 borderSide: BorderSide(
                                                     color: Colors.orange,
@@ -203,6 +184,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                                           nameDatePhone)
                                                   .then((value) {
                                                 print("update info success");
+                                                widget.updateUi();
                                                 setState(() {});
                                               }).catchError((err) {
                                                 print(err);
@@ -288,11 +270,19 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
             child: Row(
               children: [
-                Image.asset(
-                  "assets/images/car1.jpg",
-                  height: 70,
-                  width: 70,
-                )
+                _imageFile == null
+                    ? Image.asset(
+                        "assets/images/car3.jpg",
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      )
+                    : Image.file(
+                        _imageFile,
+                        height: 100,
+                        width: 100,
+                        fit: BoxFit.cover,
+                      )
               ],
             ),
           )
