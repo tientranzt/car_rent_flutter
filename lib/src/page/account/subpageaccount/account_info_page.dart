@@ -29,6 +29,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   List<String> listUrlImageString = [];
 
   Future uploadFile() async {
+
     StorageReference storageReference = FirebaseStorage.instance.ref().child(
         '${firebaseAuth.currentUser.uid}/${firebaseAuth.currentUser.uid}-${DateTime.now().microsecond}');
     StorageUploadTask uploadTask = storageReference.putFile(_imageFile);
@@ -59,7 +60,9 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    getUrlImageLink();
+    if(firebaseAuth.currentUser != null ){
+      getUrlImageLink();
+    }
   }
 
   getUrlImageLink() {
@@ -86,7 +89,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     String date = "";
     String phone = "";
     print("accout info");
-    if (firebaseAuth.currentUser.displayName != null) {
+    if (firebaseAuth.currentUser != null && firebaseAuth.currentUser.displayName != null) {
       String fullString = firebaseAuth.currentUser.displayName;
       name = fullString.split("%")[0];
       date = fullString.split("%")[1];
@@ -156,7 +159,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   ),
                   FlatButton(
                       onPressed: () {
-                        print(firebaseAuth.currentUser.displayName);
+
                         nameController.text = name;
                         dateController.text = date;
                         phoneController.text = phone;
@@ -178,10 +181,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                         child: TextField(
                                           controller: nameController,
                                           decoration: InputDecoration(
-                                              focusedBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.orange,
-                                                      width: 1)),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.orange,
+                                                          width: 1)),
                                               hintText:
                                                   name == "" ? "Tên" : name),
                                         ),
@@ -193,10 +197,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           controller: dateController,
                                           keyboardType: TextInputType.datetime,
                                           decoration: InputDecoration(
-                                              focusedBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.orange,
-                                                      width: 1)),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.orange,
+                                                          width: 1)),
                                               hintText: date == ""
                                                   ? "Ngày sinh"
                                                   : date),
@@ -209,10 +214,11 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                           controller: phoneController,
                                           keyboardType: TextInputType.phone,
                                           decoration: InputDecoration(
-                                              focusedBorder: UnderlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                      color: Colors.orange,
-                                                      width: 1)),
+                                              focusedBorder:
+                                                  UnderlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.orange,
+                                                          width: 1)),
                                               hintText: phone == ""
                                                   ? "Số điện thoại"
                                                   : phone),
@@ -237,6 +243,7 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                                     .then((value) {
                                                   print("update info success");
                                                   widget.updateUi();
+                                                  Navigator.pop(context);
                                                   setState(() {});
                                                 }).catchError((err) {
                                                   print(err);
@@ -261,7 +268,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
             ),
             Container(
               color: Colors.white,
-              padding: EdgeInsets.only(left: 15, top: 15, bottom: 15, right: 15),
+              padding:
+                  EdgeInsets.only(left: 15, top: 15, bottom: 15, right: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -319,23 +327,45 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
               ],
             ),
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-                child:
-                Wrap(
-                  alignment: WrapAlignment.start,
-                  children: listUrlImageString
-                      .map((e) => Container(
-                          margin: EdgeInsets.all(5),
-                          child: Image.network(
-                            e,
-                            height: 100,
-                            width: 100,
-                            fit: BoxFit.cover,
-                          )))
-                      .toList(),
-                ),
-            ),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
+              child: Wrap(
+                alignment: WrapAlignment.start,
+                children: listUrlImageString
+                    .map((e) => GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => Scaffold(
+                                          appBar: AppBar(
+                                            title: Text("Bộ sưu tập", style: TextStyle(color: Colors.black, fontSize: 14),),
+                                            centerTitle: true,
+                                            backgroundColor: Colors.white,
+                                            iconTheme: IconThemeData(
+                                                color: Colors.black,),
+                                            elevation: 0,
+                                          ),
+                                          body: Image.network(
+                                            e,
+                                            width: double.infinity,
+                                            height: double.infinity,
+                                            fit: BoxFit.cover,
 
+                                          ),
+                                        )));
+                          },
+                          child: Container(
+                              margin: EdgeInsets.all(5),
+                              child: Image.network(
+                                e,
+                                height: 100,
+                                width: 100,
+                                fit: BoxFit.cover,
+                              )),
+                        ))
+                    .toList(),
+              ),
+            ),
           ],
         ),
       ),

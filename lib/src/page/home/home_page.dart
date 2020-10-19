@@ -28,7 +28,6 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     fetchCarByCategory();
-
   }
 
   fetchCarByCategory() {
@@ -63,11 +62,6 @@ class _HomePageState extends State<HomePage> {
         });
       }
     });
-    // Future.delayed(Duration(seconds: 2)).then((value) => {
-    //       setState(() {
-    //         isEnableShimmer = false;
-    //       })
-    //     });
   }
 
   var indexTest = 0;
@@ -132,62 +126,7 @@ class _HomePageState extends State<HomePage> {
       if (des.length < 50) {
         des += "\n";
       }
-      return
-
-          // isEnableShimmer
-          //   ? Padding(
-          //       padding: EdgeInsets.symmetric(horizontal: 15),
-          //       child: Shimmer.fromColors(
-          //           highlightColor: Colors.white,
-          //           baseColor: Colors.grey[300],
-          //           child: Container(
-          //             margin: EdgeInsets.symmetric(vertical: 7),
-          //             child: Column(
-          //               crossAxisAlignment: CrossAxisAlignment.start,
-          //               children: [
-          //                 Container(
-          //                   height: 120,
-          //                   width: 210,
-          //                   decoration: BoxDecoration(
-          //                       color: Colors.grey,
-          //                       borderRadius: BorderRadius.circular(12)),
-          //                 ),
-          //                 SizedBox(
-          //                   height: 10,
-          //                 ),
-          //                 Container(
-          //                   width: 200,
-          //                   height: 15,
-          //                   decoration: BoxDecoration(
-          //                       color: Colors.grey,
-          //                       borderRadius: BorderRadius.circular(12)),
-          //                 ),
-          //                 SizedBox(
-          //                   height: 10,
-          //                 ),
-          //                 Container(
-          //                   width: 180,
-          //                   height: 15,
-          //                   decoration: BoxDecoration(
-          //                       color: Colors.grey,
-          //                       borderRadius: BorderRadius.circular(12)),
-          //                 ),
-          //                 SizedBox(
-          //                   height: 30,
-          //                 ),
-          //                 Container(
-          //                   width: 100,
-          //                   height: 40,
-          //                   decoration: BoxDecoration(
-          //                       color: Colors.grey,
-          //                       borderRadius: BorderRadius.circular(25)),
-          //                 ),
-          //               ],
-          //             ),
-          //           )))
-          //   :
-
-          GestureDetector(
+      return GestureDetector(
         onTap: () {
           Navigator.push(
               context,
@@ -282,12 +221,14 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    String name = "" ;
-    if(firebaseAuth.currentUser.displayName != null) {
+    String name = "";
+    if (firebaseAuth.currentUser != null && firebaseAuth.currentUser.displayName != null) {
       name = firebaseAuth.currentUser.displayName.split("%")[0];
+    } else if (firebaseAuth.currentUser != null && firebaseAuth.currentUser.email != null){
+      name = firebaseAuth.currentUser.email;
     }
     else{
-      name = firebaseAuth.currentUser.email;
+      name = "Chưa đăng nhập";
     }
     return SingleChildScrollView(
       padding: EdgeInsets.only(bottom: 10),

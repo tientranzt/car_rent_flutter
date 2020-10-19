@@ -1,6 +1,7 @@
 import 'package:cart_rent/src/page/account/subpageaccount/account_info_page.dart';
 import 'package:cart_rent/src/page/account/subpageaccount/account_rewards_page.dart';
 import 'package:cart_rent/src/page/account/subpageaccount/history_order_page.dart';
+import 'package:cart_rent/src/page/home/home_page.dart';
 import 'package:cart_rent/src/page/login/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,20 +14,22 @@ class AccountPage extends StatefulWidget {
 class _AccountPageState extends State<AccountPage> {
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  void updateUI(){
-    setState(() {
-    });
+  void updateUI() {
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    print(mounted);
-    String name = "" ;
-    if(firebaseAuth.currentUser.displayName != null) {
+    String name = "";
+
+    if (firebaseAuth.currentUser != null &&
+        firebaseAuth.currentUser.displayName != null) {
       name = firebaseAuth.currentUser.displayName.split("%")[0];
-    }
-    else{
+    } else if (firebaseAuth.currentUser != null &&
+        firebaseAuth.currentUser.email != null) {
       name = firebaseAuth.currentUser.email;
+    } else {
+      name = "Chưa đăng nhập";
     }
 
     return Scaffold(
@@ -49,9 +52,7 @@ class _AccountPageState extends State<AccountPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  name == null
-                      ? firebaseAuth.currentUser.email
-                      : name,
+                  name == null ? firebaseAuth.currentUser.email : name,
                   style: TextStyle(
                       color: Colors.black87, fontSize: 15, wordSpacing: 2),
                 ),
@@ -73,6 +74,15 @@ class _AccountPageState extends State<AccountPage> {
               width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [
+                  firebaseAuth.currentUser != null
+                      ? Offstage()
+                      : Container(
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            "Các tính năng cần đăng nhập để sử dụng",
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        ),
                   Material(
                     color: Colors.white,
                     child: InkWell(
@@ -80,7 +90,10 @@ class _AccountPageState extends State<AccountPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AccountRewardsPage()));
+                                builder: (context) =>
+                                    firebaseAuth.currentUser != null
+                                        ? AccountRewardsPage()
+                                        : LoginPage()));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -106,7 +119,12 @@ class _AccountPageState extends State<AccountPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AccountInfoPage(updateUi: updateUI,)));
+                                builder: (context) =>
+                                    firebaseAuth.currentUser != null
+                                        ? AccountInfoPage(
+                                            updateUi: updateUI,
+                                          )
+                                        : LoginPage()));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -132,7 +150,10 @@ class _AccountPageState extends State<AccountPage> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HistoryOrderPage()));
+                                builder: (context) =>
+                                    firebaseAuth.currentUser != null
+                                        ? HistoryOrderPage()
+                                        : LoginPage()));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -154,27 +175,30 @@ class _AccountPageState extends State<AccountPage> {
                 ],
               ),
             ),
-            Material(
-              color: Color(0xffF0EFF4),
-              child: InkWell(
-                onTap: () {
-                  firebaseAuth.signOut().then((value) {
-                    Navigator.pushReplacementNamed(context, LoginPage.route);
-                  }).catchError((err) {
-                    print(err);
-                  });
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text("Đăng xuất"),
+            firebaseAuth.currentUser != null
+                ? Material(
+                    color: Color(0xffF0EFF4),
+                    child: InkWell(
+                      onTap: () {
+                        firebaseAuth.signOut().then((value) {
+                          Navigator.pushReplacementNamed(
+                              context, HomePage.route);
+                        }).catchError((err) {
+                          print(err);
+                        });
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text("Đăng xuất"),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            ),
+                  )
+                : Offstage(),
           ],
         ));
   }

@@ -39,7 +39,6 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     config();
-    bool isLogin = firebaseAuth.currentUser == null;
 
     return MaterialApp(
       routes: {
@@ -52,7 +51,7 @@ class _MyAppState extends State<MyApp> {
         HistoryOrderPage.route : (context) => HistoryOrderPage(),
         AccountRewardsPage.route : (context) => AccountRewardsPage(),
       },
-      initialRoute: isLogin ? LoginPage.route : HomePage.route,
+      initialRoute: HomePage.route,
       debugShowCheckedModeBanner: false,
       title: 'Car Rent',
     );
