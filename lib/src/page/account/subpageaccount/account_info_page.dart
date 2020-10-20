@@ -2,9 +2,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AccountInfoPage extends StatefulWidget {
@@ -23,13 +21,33 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   TextEditingController dateController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   File _imageFile;
+  File _imageProfile;
   String _uploadedFileURL = "";
   final picker = ImagePicker();
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   List<String> listUrlImageString = [];
 
-  Future uploadFile() async {
+  Future uploadProfileImage() async {
+    StorageReference storageReference = FirebaseStorage.instance.ref().child(
+        '${firebaseAuth.currentUser.uid}/${firebaseAuth.currentUser.uid}-${DateTime.now().microsecond}');
+    StorageUploadTask uploadTask = storageReference.putFile(_imageProfile);
+    await uploadTask.onComplete;
+    print('profile image uploaded');
+    storageReference.getDownloadURL().then((fileURL) {
+      setState(() {
+        firebaseAuth.currentUser.updateProfile(photoURL: fileURL).then((value) {
+          print("update url profile success");
+          setState(() {
+            widget.updateUi();
+          });
+        }).catchError((err) {
+          print(err);
+        });
+      });
+    });
+  }
 
+  Future uploadFile() async {
     StorageReference storageReference = FirebaseStorage.instance.ref().child(
         '${firebaseAuth.currentUser.uid}/${firebaseAuth.currentUser.uid}-${DateTime.now().microsecond}');
     StorageUploadTask uploadTask = storageReference.putFile(_imageFile);
@@ -38,7 +56,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     storageReference.getDownloadURL().then((fileURL) {
       setState(() {
         _uploadedFileURL = fileURL;
-        print(_uploadedFileURL);
         firebaseFirestore
             .collection('${firebaseAuth.currentUser.uid}/')
             .add({"image": _uploadedFileURL});
@@ -47,22 +64,27 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
     });
   }
 
-  Future pickImage() async {
+  Future pickImageProfile() async {
     await picker.getImage(source: ImageSource.gallery).then((image) {
-      setState(() {
-        _imageFile = File(image.path);
-        uploadFile();
-      });
+      print(image);
+      if (image != null && image.path != null) {
+        setState(() {
+          _imageProfile = File(image.path);
+          uploadProfileImage();
+        });
+      }
     });
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    if(firebaseAuth.currentUser != null ){
-      getUrlImageLink();
-    }
+  Future pickImage() async {
+    await picker.getImage(source: ImageSource.gallery).then((image) {
+      if (image != null && image.path != null) {
+        setState(() {
+          _imageFile = File(image.path);
+          uploadFile();
+        });
+      }
+    });
   }
 
   getUrlImageLink() {
@@ -71,10 +93,8 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
         .collection("${firebaseAuth.currentUser.uid}/")
         .get()
         .then((value) {
-      print(value.docs);
       List<QueryDocumentSnapshot> listData = value.docs;
       listData.forEach((element) {
-        print(element.data()['image']);
         setState(() {
           listUrlImageString.add(element.data()['image']);
         });
@@ -83,13 +103,27 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (firebaseAuth.currentUser != null) {
+      getUrlImageLink();
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print(listUrlImageString);
     String name = "";
     String date = "";
     String phone = "";
-    print("accout info");
-    if (firebaseAuth.currentUser != null && firebaseAuth.currentUser.displayName != null) {
+    String profileImageUrl = "";
+
+    if (firebaseAuth.currentUser != null &&
+        firebaseAuth.currentUser.photoURL != null) {
+      profileImageUrl = firebaseAuth.currentUser.photoURL;
+    }
+    if (firebaseAuth.currentUser != null &&
+        firebaseAuth.currentUser.displayName != null) {
       String fullString = firebaseAuth.currentUser.displayName;
       name = fullString.split("%")[0];
       date = fullString.split("%")[1];
@@ -114,19 +148,33 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                 children: [
                   GestureDetector(
                     onTap: () {
-                      showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return Container(
-                              height: 300,
-                            );
-                          });
+                      pickImageProfile();
                     },
-                    child: Image.asset(
-                      "assets/images/account1.jpg",
-                      height: 100,
-                      width: 100,
-                    ),
+                    child: profileImageUrl == ""
+                        ? Container(
+                            width: 100,
+                            height: 100,
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/account1.jpg"),
+                                    fit: BoxFit.fill)),
+                          )
+                        : Container(
+                            width: 100,
+                            height: 100,
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: NetworkImage(profileImageUrl),
+                                    fit: BoxFit.fill)),
+                          ),
+                  ),
+                  SizedBox(
+                    height: 5,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -159,7 +207,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                   ),
                   FlatButton(
                       onPressed: () {
-
                         nameController.text = name;
                         dateController.text = date;
                         phoneController.text = phone;
@@ -338,11 +385,17 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                 MaterialPageRoute(
                                     builder: (context) => Scaffold(
                                           appBar: AppBar(
-                                            title: Text("Bộ sưu tập", style: TextStyle(color: Colors.black, fontSize: 14),),
+                                            title: Text(
+                                              "Bộ sưu tập",
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 14),
+                                            ),
                                             centerTitle: true,
                                             backgroundColor: Colors.white,
                                             iconTheme: IconThemeData(
-                                                color: Colors.black,),
+                                              color: Colors.black,
+                                            ),
                                             elevation: 0,
                                           ),
                                           body: Image.network(
@@ -350,7 +403,6 @@ class _AccountInfoPageState extends State<AccountInfoPage> {
                                             width: double.infinity,
                                             height: double.infinity,
                                             fit: BoxFit.cover,
-
                                           ),
                                         )));
                           },

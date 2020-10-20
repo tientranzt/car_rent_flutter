@@ -21,6 +21,11 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     String name = "";
+    String profileImageUrl = "";
+
+    if (firebaseAuth.currentUser != null && firebaseAuth.currentUser.photoURL != null) {
+      profileImageUrl = firebaseAuth.currentUser.photoURL;
+    }
 
     if (firebaseAuth.currentUser != null &&
         firebaseAuth.currentUser.displayName != null) {
@@ -41,9 +46,15 @@ class _AccountPageState extends State<AccountPage> {
           leading: Container(
             width: 50,
             height: 50,
+            margin: EdgeInsets.all(5),
             decoration: BoxDecoration(
-                color: Colors.transparent, shape: BoxShape.circle),
-            child: Image.asset("assets/images/account1.jpg"),
+                color: Colors.transparent,
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.fill,
+                    image: profileImageUrl == ""
+                        ? AssetImage("assets/images/account1.jpg")
+                        : NetworkImage(profileImageUrl))),
           ),
           title: Container(
             padding: EdgeInsets.all(0),

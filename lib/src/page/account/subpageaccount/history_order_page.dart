@@ -1,3 +1,4 @@
+import 'package:cart_rent/src/page/home/home_page.dart';
 import 'package:flutter/material.dart';
 
 class HistoryOrderPage extends StatefulWidget {
@@ -21,7 +22,7 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
       body: Column(
         children: [
           Container(
-            padding: EdgeInsets.only(top: 50, left: 50, right: 50),
+            padding: EdgeInsets.only(top: 50, left: 100, right: 100),
             child: Image.asset("assets/images/order_car4.png", fit: BoxFit.cover,),
           ),
           Container(
@@ -31,7 +32,9 @@ class _HistoryOrderPageState extends State<HistoryOrderPage> {
             padding: EdgeInsets.only(top: 50, left: 50, right: 50),            width: double.infinity,
             child: FlatButton(
               color: Colors.orange,
-              onPressed: (){},
+              onPressed: (){
+                  Navigator.pushReplacementNamed(context, HomePage.route, arguments: 1);
+              },
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
               child: Text("Đặt xe ngay", style: TextStyle(color: Colors.white),),
             ),

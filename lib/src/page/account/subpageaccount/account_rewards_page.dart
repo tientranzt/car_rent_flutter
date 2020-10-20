@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class AccountRewardsPage extends StatefulWidget {
@@ -9,8 +9,21 @@ class AccountRewardsPage extends StatefulWidget {
 }
 
 class _AccountRewardsPageState extends State<AccountRewardsPage> {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+
+
   @override
   Widget build(BuildContext context) {
+    String name = "";
+    if (firebaseAuth.currentUser != null &&
+        firebaseAuth.currentUser.displayName != null) {
+      name = firebaseAuth.currentUser.displayName.split("%")[0];
+    } else if (firebaseAuth.currentUser != null &&
+        firebaseAuth.currentUser.email != null) {
+      name = firebaseAuth.currentUser.email;
+    } else {
+      name = "Chưa đăng nhập";
+    }
     return Scaffold(
       backgroundColor: Color(0xffF0EFF4),
       appBar: AppBar(
@@ -36,7 +49,15 @@ class _AccountRewardsPageState extends State<AccountRewardsPage> {
                 Container(
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8),
-                    color: Colors.orange,
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.orange[400],
+                        Colors.orange[600],
+                        Colors.orange[800],
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight
+                    ),
                   ),
                   width: double.infinity,
                   height: 200,
@@ -49,7 +70,7 @@ class _AccountRewardsPageState extends State<AccountRewardsPage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          "Nguyen Minh Tri",
+                          name,
                           style: TextStyle(color: Colors.white, fontSize: 22),
                         ),
                         Text("Khách hàng mới",

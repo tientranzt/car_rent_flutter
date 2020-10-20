@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:cart_rent/src/model/CarModel.dart';
 import 'package:cart_rent/src/page/carorder/car_order_page.dart';
 import 'package:cart_rent/src/page/detail/detail_page.dart';
@@ -8,7 +7,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
 
 class HomePage extends StatefulWidget {
   static const String route = "/home";
@@ -28,6 +26,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     fetchCarByCategory();
+  }
+
+  void changeCurrentIndex({int indexChange}) {
+    setState(() {
+      _currentIndexBottomBar = indexChange;
+    });
   }
 
   fetchCarByCategory() {
@@ -65,9 +69,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   var indexTest = 0;
-
+  bool flagRunIndexChange = true;
   @override
   Widget build(BuildContext context) {
+    final indexArgs = ModalRoute.of(context).settings.arguments;
+
+      if(indexArgs == 1 && flagRunIndexChange == true){
+        setState(() {
+          _currentIndexBottomBar = indexArgs;
+          flagRunIndexChange = false;
+        });
+      }
+
     List<Widget> contentBody = [
       homeBody(context),
       CarOrder(),
@@ -222,12 +235,20 @@ class _HomePageState extends State<HomePage> {
     }
 
     String name = "";
-    if (firebaseAuth.currentUser != null && firebaseAuth.currentUser.displayName != null) {
-      name = firebaseAuth.currentUser.displayName.split("%")[0];
-    } else if (firebaseAuth.currentUser != null && firebaseAuth.currentUser.email != null){
-      name = firebaseAuth.currentUser.email;
+    String profileImageUrl = "";
+
+    if (firebaseAuth.currentUser != null &&
+        firebaseAuth.currentUser.photoURL != null) {
+      profileImageUrl = firebaseAuth.currentUser.photoURL;
     }
-    else{
+
+    if (firebaseAuth.currentUser != null &&
+        firebaseAuth.currentUser.displayName != null) {
+      name = firebaseAuth.currentUser.displayName.split("%")[0];
+    } else if (firebaseAuth.currentUser != null &&
+        firebaseAuth.currentUser.email != null) {
+      name = firebaseAuth.currentUser.email;
+    } else {
       name = "Chưa đăng nhập";
     }
     return SingleChildScrollView(
@@ -241,11 +262,28 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   GestureDetector(
                     onTap: () {},
-                    child: CircleAvatar(
-                      backgroundImage:
-                          ExactAssetImage("assets/images/account1.jpg"),
-                      backgroundColor: Colors.transparent,
-                    ),
+                    child: profileImageUrl == ""
+                        ? Container(
+                            width: 40,
+                            height: 40,
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        "assets/images/account1.jpg"),
+                                    fit: BoxFit.fill)),
+                          )
+                        : Container(
+                            width: 40,
+                            height: 40,
+                            margin: EdgeInsets.all(5),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                    image: NetworkImage(profileImageUrl),
+                                    fit: BoxFit.fill)),
+                          ),
                   ),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -301,7 +339,9 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          print("score");
+                          setState(() {
+                            _currentIndexBottomBar = 3;
+                          });
                         },
                         child: Column(
                           children: [
@@ -342,7 +382,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("coupon");
+                          setState(() {
+                            _currentIndexBottomBar = 3;
+                          });
                         },
                         child: Column(
                           children: [
@@ -361,7 +403,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("rewards");
+                          setState(() {
+                            _currentIndexBottomBar = 3;
+                          });
                         },
                         child: Column(
                           children: [
@@ -390,7 +434,9 @@ class _HomePageState extends State<HomePage> {
                     children: [
                       GestureDetector(
                         onTap: () {
-                          print("score");
+                          setState(() {
+                            _currentIndexBottomBar = 3;
+                          });
                         },
                         child: Column(
                           children: [
@@ -425,7 +471,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("coupon");
+                          setState(() {
+                            _currentIndexBottomBar = 3;
+                          });
                         },
                         child: Column(
                           children: [
@@ -443,7 +491,9 @@ class _HomePageState extends State<HomePage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("rewards");
+                          setState(() {
+                            _currentIndexBottomBar = 3;
+                          });
                         },
                         child: Column(
                           children: [
