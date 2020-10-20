@@ -24,6 +24,8 @@ class _AccountRewardsPageState extends State<AccountRewardsPage> {
     } else {
       name = "Chưa đăng nhập";
     }
+
+
     return Scaffold(
       backgroundColor: Color(0xffF0EFF4),
       appBar: AppBar(

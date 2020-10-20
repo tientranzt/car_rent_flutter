@@ -70,16 +70,19 @@ class _HomePageState extends State<HomePage> {
 
   var indexTest = 0;
   bool flagRunIndexChange = true;
+
   @override
   Widget build(BuildContext context) {
     final indexArgs = ModalRoute.of(context).settings.arguments;
 
-      if(indexArgs == 1 && flagRunIndexChange == true){
-        setState(() {
-          _currentIndexBottomBar = indexArgs;
-          flagRunIndexChange = false;
-        });
-      }
+    print(firebaseAuth.currentUser);
+
+    if (indexArgs == 1 && flagRunIndexChange == true) {
+      setState(() {
+        _currentIndexBottomBar = indexArgs;
+        flagRunIndexChange = false;
+      });
+    }
 
     List<Widget> contentBody = [
       homeBody(context),
