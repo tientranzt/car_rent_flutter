@@ -95,22 +95,12 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Color(0xffF0EFF4),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Trang chủ"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('Trang chủ'),
-          ),
+              icon: Icon(Icons.directions_car), label: "Đặt xe"),
+          BottomNavigationBarItem(icon: Icon(Icons.store), label: "Cửa hàng"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.directions_car),
-            title: Text('Đặt xe'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.store),
-            title: Text('Cửa hàng'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            title: Text('Tài khoản'),
-          ),
+              icon: Icon(Icons.account_circle), label: "Tài khoản"),
         ],
         currentIndex: _currentIndexBottomBar,
         selectedItemColor: Color(0xffEE7F23),
@@ -135,6 +125,7 @@ class _HomePageState extends State<HomePage> {
     Widget _categoryOne({String image, String title, String description}) {
       //fix for length of description not enought 3 lines
       var des = description;
+
       if (des.length < 30) {
         des += "\n\n";
       }
@@ -142,6 +133,7 @@ class _HomePageState extends State<HomePage> {
       if (des.length < 50) {
         des += "\n";
       }
+
       return GestureDetector(
         onTap: () {
           Navigator.push(
@@ -518,6 +510,7 @@ class _HomePageState extends State<HomePage> {
 
           // RENDER CATEGORY AND CAR BELONG TO CATEGORY
           ...(mapCarInfo.keys).map((e) {
+            print("key in char");
             return Container(
               width: double.infinity,
               margin: EdgeInsets.only(top: 10),
