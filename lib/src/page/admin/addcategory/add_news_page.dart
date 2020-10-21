@@ -28,7 +28,7 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
               Text("sub title "),
               Row(children: [
                 Text("test code layout category"),
-                Text("test data")
+                Text("test data ")
               ],)
             ],
           ),
@@ -54,6 +54,11 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
                     Text("data5"),
                   ],
                 ),
+              ),
+              Row(
+                children: [
+                  Text("text filed bottom"),
+                ],
               )
             ],
           )
