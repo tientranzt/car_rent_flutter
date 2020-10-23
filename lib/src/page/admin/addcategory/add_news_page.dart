@@ -9,10 +9,13 @@ class AddCategoryNewsPage extends StatefulWidget {
 }
 
 class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
+  TextEditingController textTitleEditingController = TextEditingController();
+  TextEditingController textContentEditingController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         FocusScope.of(context).unfocus();
       },
       child: Scaffold(
@@ -23,7 +26,9 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
               "Thêm bài viết",
               maxLines: 1,
               style: TextStyle(
-                  color: Colors.black, fontSize: 15, fontWeight: FontWeight.bold),
+                  color: Colors.black,
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold),
             ),
             centerTitle: true,
             elevation: 0,
@@ -48,34 +53,17 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
                             color: Colors.white,
                           )),
                         ),
-                        Container(
-                            padding: EdgeInsets.all(2),
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            child: Chip(label: Text("Cat1"))),
-                        Container(
-                            padding: EdgeInsets.all(2),
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            child: Chip(label: Text("Cat2"))),
-                        Container(
-                            padding: EdgeInsets.all(2),
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            child: Chip(label: Text("Cat3"))),
-                        Container(
-                            padding: EdgeInsets.all(2),
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            child: Chip(label: Text("Cat4"))),
-                        Container(
-                            padding: EdgeInsets.all(2),
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            child: Chip(label: Text("Cat5"))),
-                        Container(
-                            padding: EdgeInsets.all(2),
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            child: Chip(label: Text("Cat6"))),
-                        Container(
-                            padding: EdgeInsets.all(2),
-                            margin: EdgeInsets.symmetric(horizontal: 10),
-                            child: Chip(label: Text("Cat7"))),
+                        ...List.generate(
+                            7,
+                            (index) => Container(
+                                padding: EdgeInsets.all(2),
+                                margin: EdgeInsets.symmetric(horizontal: 8),
+                                child: Chip(
+                                  label: Text(
+                                    "Cat ${index + 1}",
+                                  ),
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
+                                )))
                       ],
                     ),
                   ),
@@ -85,46 +73,61 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
                   child: Column(
                     children: [
                       TextField(
+                        controller: textTitleEditingController,
                         decoration: InputDecoration(
                           hintText: "Tiêu đề tài viết",
                         ),
                       ),
                       TextField(
+                        controller: textContentEditingController,
                         maxLines: 20,
                         decoration: InputDecoration(
                           hintText: "Nội dung",
                         ),
                       ),
-                      DropdownButton(
-                        items: [
-                          DropdownMenuItem(
-                            child: Text("Cat1"),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Chọn mục",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          DropdownButton(
+                            items: [
+                              DropdownMenuItem(
+                                child: Text("Cat1"),
+                                value: 1,
+                              ),
+                              DropdownMenuItem(
+                                child: Text("Cat2"),
+                                value: 2,
+                              ),
+                              DropdownMenuItem(
+                                child: Text("Cat3"),
+                                value: 3,
+                              ),
+                              DropdownMenuItem(
+                                child: Text("Cat4"),
+                                value: 4,
+                              ),
+                            ],
+                            onChanged: (v) {
+                              print(v);
+                            },
                             value: 1,
-                          ),
-                          DropdownMenuItem(
-                            child: Text("Cat2"),
-                            value: 2,
-                          ),
-                          DropdownMenuItem(
-                            child: Text("Cat3"),
-                            value: 3,
-                          ),
-                          DropdownMenuItem(
-                            child: Text("Cat4"),
-                            value: 4,
-                          ),
+                          )
                         ],
-                        onChanged: (v) {
-                          print(v);
-                        },
-                        value: 1,
                       ),
                       FlatButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          print(textTitleEditingController.text);
+                          print(textContentEditingController.text);
+                        },
                         child: Text(
                           "Thêm bài viết",
                           style: TextStyle(color: Colors.white),
                         ),
+
                         color: Colors.orange,
                       ),
                     ],

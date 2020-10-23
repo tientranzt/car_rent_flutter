@@ -1,6 +1,7 @@
 import 'package:cart_rent/src/page/account/subpageaccount/account_info_page.dart';
 import 'package:cart_rent/src/page/account/subpageaccount/account_rewards_page.dart';
 import 'package:cart_rent/src/page/account/subpageaccount/history_order_page.dart';
+import 'package:cart_rent/src/page/admin/addcar/add_car_page.dart';
 import 'package:cart_rent/src/page/admin/addcategory/add_news_page.dart';
 import 'package:cart_rent/src/page/detail/detail_page.dart';
 import 'package:cart_rent/src/page/home/home_page.dart';
@@ -52,8 +53,9 @@ class _MyAppState extends State<MyApp> {
         HistoryOrderPage.route : (context) => HistoryOrderPage(),
         AccountRewardsPage.route : (context) => AccountRewardsPage(),
         AddCategoryNewsPage.route: (context) => AddCategoryNewsPage(),
+        AddCarPage.route: (context) => AddCarPage()
       },
-      initialRoute: AddCategoryNewsPage.route,
+      initialRoute: AddCarPage.route,
       debugShowCheckedModeBanner: false,
       title: 'Car Rent',
 

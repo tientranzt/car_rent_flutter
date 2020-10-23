@@ -75,7 +75,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final indexArgs = ModalRoute.of(context).settings.arguments;
 
-    print(firebaseAuth.currentUser);
 
     if (indexArgs == 1 && flagRunIndexChange == true) {
       setState(() {
@@ -355,7 +354,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("car rent");
+
                           setState(() {
                             _currentIndexBottomBar = 1;
                           });
@@ -510,7 +509,7 @@ class _HomePageState extends State<HomePage> {
 
           // RENDER CATEGORY AND CAR BELONG TO CATEGORY
           ...(mapCarInfo.keys).map((e) {
-            print("key in char");
+
             return Container(
               width: double.infinity,
               margin: EdgeInsets.only(top: 10),
