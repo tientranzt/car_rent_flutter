@@ -22,7 +22,7 @@ class _AddCarPageState extends State<AddCarPage> {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 30),
+          padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             mainAxisSize: MainAxisSize.max,
@@ -31,14 +31,28 @@ class _AddCarPageState extends State<AddCarPage> {
                 padding: EdgeInsets.only(bottom: 15),
                 child: Text("Tên xe"),
               ),
-              Container(
-                  padding: EdgeInsets.all(30),child: TextField()),
+              Container(padding: EdgeInsets.all(30), child: TextField()),
               Container(
                 padding: EdgeInsets.only(bottom: 15),
                 child: Text("Mô tả"),
               ),
+              Container(padding: EdgeInsets.all(30), child: TextField()),
               Container(
-                  padding: EdgeInsets.all(30),child: TextField()),
+                width: double.infinity,
+                child: FlatButton(
+                  color: Colors.orange,
+                  onPressed: () {
+                    print("add car");
+                  },
+                  child: Text(
+                    "Thêm xe",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              )
             ],
           ),
         ),

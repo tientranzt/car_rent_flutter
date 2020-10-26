@@ -22,6 +22,7 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
           backgroundColor: Color(0xffF0EFF4),
           appBar: AppBar(
             backgroundColor: Colors.white,
+
             title: Text(
               "Thêm bài viết",
               maxLines: 1,
@@ -123,11 +124,10 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
                           print(textTitleEditingController.text);
                           print(textContentEditingController.text);
                         },
-                        child: Text(
+                        child:  Text(
                           "Thêm bài viết",
                           style: TextStyle(color: Colors.white),
                         ),
-
                         color: Colors.orange,
                       ),
                     ],
