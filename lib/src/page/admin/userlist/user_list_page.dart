@@ -11,7 +11,10 @@ class _UserListPageState extends State<UserListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Quản lý user"),
+        backgroundColor: Colors.white,
+        title: Text("Quản lý user", style: TextStyle(color: Colors.black),),
+        centerTitle: true,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -22,17 +25,20 @@ class _UserListPageState extends State<UserListPage> {
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(builder: (context) => Scaffold(
                           appBar: AppBar(
-                            title: Text("username ${index + 1}"),
+                            backgroundColor: Colors.white,
+                            title: Text("username $index", style: TextStyle(color: Colors.black),),
                             centerTitle: true,
+                            elevation: 0,
+                            iconTheme: IconThemeData(color: Colors.black),
                           ),
-                          body: Center(child: Text("index $index")),
+                          body: Center(child: Text("content $index")),
                         )));
                       },
                       child: Card(
                         color: Colors.white,
                         elevation: 2,
                         child: ListTile(
-                          leading: Icon(Icons.circle, size: 50,),
+                          leading: Icon(Icons.circle, size: 50, color: Colors.orange,),
                           title: Text("username ${index + 1}"),
                           subtitle: Text("email${index + 1}@gmail.com"),
                         ),
