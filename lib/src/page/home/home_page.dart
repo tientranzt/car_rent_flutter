@@ -87,7 +87,6 @@ class _HomePageState extends State<HomePage> {
     }
 
 
-
     List<Widget> contentBody = [
       AddCategoryNewsPage(),
       AddCarPage(),

@@ -8,6 +8,9 @@ class AddCarPage extends StatefulWidget {
 }
 
 class _AddCarPageState extends State<AddCarPage> {
+  TextEditingController titleAddCar = TextEditingController();
+  TextEditingController descriptionAddCar = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,12 +34,14 @@ class _AddCarPageState extends State<AddCarPage> {
               Container(
                   padding: EdgeInsets.all(30),
                   child: TextField(
+                    controller: titleAddCar,
                     decoration: InputDecoration(hintText: "Tên Xe"),
                   )),
               Container(
                   padding: EdgeInsets.all(30),
                   child: TextField(
-                    maxLines: 20,
+                    controller: descriptionAddCar,
+                    maxLines: 16,
                     decoration: InputDecoration(hintText: "Mô tả xe"),
                   )),
               Container(

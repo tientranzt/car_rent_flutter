@@ -1,3 +1,6 @@
+import 'package:cart_rent/src/page/admin/userlist/subedit/add_history_page.dart';
+import 'package:cart_rent/src/page/admin/userlist/subedit/add_score_page.dart';
+import 'package:cart_rent/src/page/admin/userlist/subedit/image_edit_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -41,13 +44,19 @@ class _UserListPageState extends State<UserListPage> {
                           children: [
                             FlatButton(
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                color: Colors.orange[400],onPressed: (){ }, child: Text("Sửa ảnh", style: TextStyle(color: Colors.white),)),
+                                color: Colors.orange[400],onPressed: (){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => ImageEditPage()));
+                            }, child: Text("Sửa ảnh", style: TextStyle(color: Colors.white),)),
                             FlatButton(
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                color: Colors.orange[600],onPressed: (){ }, child: Text("Lịch sử", style: TextStyle(color: Colors.white),)),
+                                color: Colors.orange[600],onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => AddHistoryPage()));
+                            }, child: Text("Lịch sử", style: TextStyle(color: Colors.white),)),
                             FlatButton(
                                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                                color: Colors.orange[800],onPressed: (){ }, child: Text("Thêm điểm", style: TextStyle(color: Colors.white),)),
+                                color: Colors.orange[800],onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context) => AddScorePage()));
+                            }, child: Text("Thêm điểm", style: TextStyle(color: Colors.white),)),
                           ],
                         ),
 

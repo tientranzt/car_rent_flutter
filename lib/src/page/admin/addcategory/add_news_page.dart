@@ -9,6 +9,7 @@ class AddCategoryNewsPage extends StatefulWidget {
 }
 
 class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
+
   TextEditingController textTitleEditingController = TextEditingController();
   TextEditingController textContentEditingController = TextEditingController();
 
@@ -81,7 +82,7 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
                       ),
                       TextField(
                         controller: textContentEditingController,
-                        maxLines: 20,
+                        maxLines: 16,
                         decoration: InputDecoration(
                           hintText: "Nội dung",
                         ),
@@ -119,16 +120,20 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
                           )
                         ],
                       ),
-                      FlatButton(
-                        onPressed: () {
-                          print(textTitleEditingController.text);
-                          print(textContentEditingController.text);
-                        },
-                        child:  Text(
-                          "Thêm bài viết",
-                          style: TextStyle(color: Colors.white),
+                      Container(
+                        width: double.infinity,
+                        child: FlatButton(
+
+                          onPressed: () {
+                            print(textTitleEditingController.text);
+                            print(textContentEditingController.text);
+                          },
+                          child:  Text(
+                            "Thêm bài viết",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          color: Colors.orange,
                         ),
-                        color: Colors.orange,
                       ),
                     ],
                   ),
