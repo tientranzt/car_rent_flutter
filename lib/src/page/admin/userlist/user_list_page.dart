@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class UserListPage extends StatefulWidget {
@@ -25,39 +26,31 @@ class _UserListPageState extends State<UserListPage> {
           children: List.generate(
               10,
               (index) => Material(
-                    child: InkWell(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Scaffold(
-                                      appBar: AppBar(
-                                        backgroundColor: Colors.white,
-                                        title: Text(
-                                          "username $index",
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                        centerTitle: true,
-                                        elevation: 0,
-                                        iconTheme:
-                                            IconThemeData(color: Colors.black),
-                                      ),
-                                      body:
-                                          Center(child: Text("content $index")),
-                                    )));
-                      },
-                      child: Card(
-                        color: Colors.white,
-                        elevation: 2,
-                        child: ListTile(
-                          leading: Icon(
-                            Icons.circle,
-                            size: 50,
-                            color: Colors.orange,
-                          ),
-                          title: Text("username ${index + 1}"),
-                          subtitle: Text("email${index + 1}@gmail.com"),
+                    child: Card(
+                      color: Colors.white,
+                      elevation: 2,
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.circle,
+                          size: 50,
+                          color: Colors.grey,
                         ),
+                        title: Text("username ${index + 1} - " + "email${index + 1}@gmail.com" , style: TextStyle(fontSize: 14),),
+                        subtitle: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            FlatButton(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                color: Colors.orange[400],onPressed: (){ }, child: Text("Sửa ảnh", style: TextStyle(color: Colors.white),)),
+                            FlatButton(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                color: Colors.orange[600],onPressed: (){ }, child: Text("Lịch sử", style: TextStyle(color: Colors.white),)),
+                            FlatButton(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                                color: Colors.orange[800],onPressed: (){ }, child: Text("Thêm điểm", style: TextStyle(color: Colors.white),)),
+                          ],
+                        ),
+
                       ),
                     ),
                   )),

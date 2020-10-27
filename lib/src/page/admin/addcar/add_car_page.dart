@@ -19,6 +19,7 @@ class _AddCarPageState extends State<AddCarPage> {
         iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         centerTitle: true,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Container(
@@ -28,17 +29,19 @@ class _AddCarPageState extends State<AddCarPage> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
-                padding: EdgeInsets.only(bottom: 15),
-                child: Text("Tên xe"),
-              ),
-              Container(padding: EdgeInsets.all(30), child: TextField()),
+                  padding: EdgeInsets.all(30),
+                  child: TextField(
+                    decoration: InputDecoration(hintText: "Tên Xe"),
+                  )),
               Container(
-                padding: EdgeInsets.only(bottom: 15),
-                child: Text("Mô tả"),
-              ),
-              Container(padding: EdgeInsets.all(30), child: TextField()),
+                  padding: EdgeInsets.all(30),
+                  child: TextField(
+                    maxLines: 20,
+                    decoration: InputDecoration(hintText: "Mô tả xe"),
+                  )),
               Container(
                 width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 30),
                 child: FlatButton(
                   color: Colors.orange,
                   onPressed: () {

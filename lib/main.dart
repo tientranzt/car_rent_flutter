@@ -57,7 +57,7 @@ class _MyAppState extends State<MyApp> {
         AddCarPage.route: (context) => AddCarPage(),
         UserListPage.route: (context) => UserListPage()
       },
-      initialRoute: UserListPage.route,
+      initialRoute: HomePage.route,
       debugShowCheckedModeBanner: false,
       title: 'Bích Long Co',
     );

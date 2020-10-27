@@ -1,4 +1,7 @@
 import 'package:cart_rent/src/model/CarModel.dart';
+import 'package:cart_rent/src/page/admin/addcar/add_car_page.dart';
+import 'package:cart_rent/src/page/admin/addcategory/add_news_page.dart';
+import 'package:cart_rent/src/page/admin/userlist/user_list_page.dart';
 import 'package:cart_rent/src/page/carorder/car_order_page.dart';
 import 'package:cart_rent/src/page/detail/detail_page.dart';
 import 'package:cart_rent/src/page/store/store_page.dart';
@@ -83,12 +86,21 @@ class _HomePageState extends State<HomePage> {
       });
     }
 
+
+
     List<Widget> contentBody = [
-      homeBody(context),
-      CarOrder(),
+      AddCategoryNewsPage(),
+      AddCarPage(),
       StorePage(),
-      AccountPage()
+      UserListPage()
     ];
+
+    // List<Widget> contentBody = [
+    //   homeBody(context),
+    //   CarOrder(),
+    //   StorePage(),
+    //   AccountPage()
+    // ];
 
     return Scaffold(
       backgroundColor: Color(0xffF0EFF4),
