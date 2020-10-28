@@ -9,9 +9,9 @@ class AddCategoryNewsPage extends StatefulWidget {
 }
 
 class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
-
   TextEditingController textTitleEditingController = TextEditingController();
   TextEditingController textContentEditingController = TextEditingController();
+  int catIndex = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,6 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
           backgroundColor: Color(0xffF0EFF4),
           appBar: AppBar(
             backgroundColor: Colors.white,
-
             title: Text(
               "Thêm bài viết",
               maxLines: 1,
@@ -44,16 +43,45 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       children: [
-                        Container(
-                          width: 34,
-                          height: 34,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle, color: Colors.orange),
-                          child: Center(
-                              child: Icon(
-                            Icons.add,
-                            color: Colors.white,
-                          )),
+                        InkWell(
+                          onTap: () {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text("Thêm danh mục mới"),
+                                    content: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        TextField(
+                                          decoration: InputDecoration(
+                                              hintText: "Nhập danh mục"),
+                                        ),
+                                        FlatButton(
+                                          onPressed: () {},
+                                          child: Text(
+                                            "Thêm",
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                          color: Colors.orange,
+                                        )
+                                      ],
+                                    ),
+                                  );
+                                });
+                          },
+                          child: Container(
+                            width: 34,
+                            height: 34,
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle, color: Colors.orange),
+                            child: Center(
+                                child: Icon(
+                              Icons.add,
+                              color: Colors.white,
+                            )),
+                          ),
                         ),
                         ...List.generate(
                             7,
@@ -114,21 +142,22 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
                               ),
                             ],
                             onChanged: (v) {
-                              print(v);
+                              setState(() {
+                                catIndex = v;
+                              });
                             },
-                            value: 1,
+                            value: catIndex,
                           )
                         ],
                       ),
                       Container(
                         width: double.infinity,
                         child: FlatButton(
-
                           onPressed: () {
                             print(textTitleEditingController.text);
                             print(textContentEditingController.text);
                           },
-                          child:  Text(
+                          child: Text(
                             "Thêm bài viết",
                             style: TextStyle(color: Colors.white),
                           ),

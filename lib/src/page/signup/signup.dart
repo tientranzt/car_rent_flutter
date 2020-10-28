@@ -48,9 +48,10 @@ class _SignupPageState extends State<SignupPage> {
         ),
         body: SingleChildScrollView(
           child: Column(
-
             children: [
-              SizedBox(height: 50,),
+              SizedBox(
+                height: 50,
+              ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -67,8 +68,7 @@ class _SignupPageState extends State<SignupPage> {
                       padding: EdgeInsets.only(top: 10, left: 25, bottom: 20),
                       child: Text("Nhập thông tin để đăng ký")),
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                     child: TextField(
                       controller: emailController,
                       keyboardType: TextInputType.emailAddress,
@@ -91,8 +91,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                     child: TextField(
                       controller: passController,
                       decoration: InputDecoration(
@@ -115,8 +114,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+                    padding: EdgeInsets.symmetric(horizontal: 25, vertical: 5),
                     child: TextField(
                       controller: passConfirmController,
                       decoration: InputDecoration(
@@ -164,13 +162,11 @@ class _SignupPageState extends State<SignupPage> {
                     }
 
                     if (!isPassLengthValid) {
-                      showAlertDialog(
-                          message: "Mật khẩu cần lớn hơn 6 kí tự");
+                      showAlertDialog(message: "Mật khẩu cần lớn hơn 6 kí tự");
                     }
 
                     if (!isPassConfirmValid) {
-                      showAlertDialog(
-                          message: "Xác nhận mật khẩu không trùng");
+                      showAlertDialog(message: "Xác nhận mật khẩu không trùng");
                     }
 
                     if (isEmailValid &&
@@ -180,17 +176,12 @@ class _SignupPageState extends State<SignupPage> {
                           .createUserWithEmailAndPassword(
                               email: userEmail, password: userPass)
                           .then((user) {
-                            emailController.text = "";
-                            passController.text = "";
-                            passConfirmController.text = "";
-                            print(user);
+                        emailController.text = "";
+                        passController.text = "";
+                        passConfirmController.text = "";
 
-
-                            Navigator.pop(context);
-
-                      })
-                          .catchError((err) {
-                        print(err.hashCode.runtimeType);
+                        Navigator.pop(context);
+                      }).catchError((err) {
                         if (err.hashCode == 86194409) {
                           showAlertDialog(message: "Email đã tồn tại");
                         } else {

@@ -78,14 +78,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     final indexArgs = ModalRoute.of(context).settings.arguments;
 
-
     if (indexArgs == 1 && flagRunIndexChange == true) {
       setState(() {
         _currentIndexBottomBar = indexArgs;
         flagRunIndexChange = false;
       });
     }
-
 
     List<Widget> contentBody = [
       AddCategoryNewsPage(),
@@ -105,12 +103,20 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Color(0xffF0EFF4),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Trang chủ"),
+
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Danh mục"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.directions_car), label: "Đặt xe"),
+              icon: Icon(Icons.directions_car), label: "Xe"),
           BottomNavigationBarItem(icon: Icon(Icons.store), label: "Cửa hàng"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), label: "Tài khoản"),
+              icon: Icon(Icons.account_circle), label: "Admin"),
+
+          // BottomNavigationBarItem(icon: Icon(Icons.home), label: "Trang chủ"),
+          // BottomNavigationBarItem(
+          //     icon: Icon(Icons.directions_car), label: "Đặt xe"),
+          // BottomNavigationBarItem(icon: Icon(Icons.store), label: "Cửa hàng"),
+          // BottomNavigationBarItem(
+          //     icon: Icon(Icons.account_circle), label: "Tài khoản"),
         ],
         currentIndex: _currentIndexBottomBar,
         selectedItemColor: Color(0xffEE7F23),
@@ -365,7 +371,6 @@ class _HomePageState extends State<HomePage> {
                       ),
                       GestureDetector(
                         onTap: () {
-
                           setState(() {
                             _currentIndexBottomBar = 1;
                           });
@@ -520,7 +525,6 @@ class _HomePageState extends State<HomePage> {
 
           // RENDER CATEGORY AND CAR BELONG TO CATEGORY
           ...(mapCarInfo.keys).map((e) {
-
             return Container(
               width: double.infinity,
               margin: EdgeInsets.only(top: 10),
