@@ -32,13 +32,13 @@ class _AddCarPageState extends State<AddCarPage> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Container(
-                  padding: EdgeInsets.all(30),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
                   child: TextField(
                     controller: titleAddCar,
                     decoration: InputDecoration(hintText: "Tên Xe"),
                   )),
               Container(
-                  padding: EdgeInsets.all(30),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 25),
                   child: TextField(
                     controller: descriptionAddCar,
                     maxLines: 16,
@@ -46,7 +46,7 @@ class _AddCarPageState extends State<AddCarPage> {
                   )),
               Container(
                 width: double.infinity,
-                padding: EdgeInsets.symmetric(horizontal: 30),
+                padding: EdgeInsets.symmetric(horizontal: 10),
                 child: FlatButton(
                   color: Colors.orange,
                   onPressed: () {

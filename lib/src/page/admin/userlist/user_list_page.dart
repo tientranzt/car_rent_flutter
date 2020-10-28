@@ -48,55 +48,60 @@ class _UserListPageState extends State<UserListPage> {
                               "email${index + 1}@gmail.com",
                           style: TextStyle(fontSize: 14),
                         ),
-                        subtitle: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            FlatButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                color: Colors.orange[400],
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ImageEditPage()));
-                                },
-                                child: Text(
-                                  "Sửa ảnh",
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                            FlatButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                color: Colors.orange[600],
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AddHistoryPage()));
-                                },
-                                child: Text(
-                                  "Lịch sử",
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                            FlatButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5)),
-                                color: Colors.orange[800],
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              AddScorePage()));
-                                },
-                                child: Text(
-                                  "Thêm điểm",
-                                  style: TextStyle(color: Colors.white),
-                                )),
-                          ],
+                        subtitle: SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              FlatButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  color: Colors.orange[400],
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                ImageEditPage()));
+                                  },
+                                  child: Text(
+                                    "Sửa ảnh",
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                              SizedBox(width: 10,),
+                              FlatButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  color: Colors.orange[600],
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                AddHistoryPage()));
+                                  },
+                                  child: Text(
+                                    "Lịch sử",
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                              SizedBox(width: 10,),
+                              FlatButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5)),
+                                  color: Colors.orange[800],
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                AddScorePage()));
+                                  },
+                                  child: Text(
+                                    "Thêm điểm",
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                            ],
+                          ),
                         ),
                       ),
                     ),
