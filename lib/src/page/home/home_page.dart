@@ -48,20 +48,12 @@ class _HomePageState extends State<HomePage> {
             var data = element.data();
             if (mapCarInfo.containsKey(catName[1])) {
               setState(() {
-                mapCarInfo[catName[1]].add(CarInfo(
-                    title: data['title'],
-                    image: data['image'],
-                    body: data['body']));
+                mapCarInfo[catName[1]].add(CarInfo(title: data['title'], image: data['image'], body: data['body']));
               });
             } else {
               setState(() {
                 mapCarInfo.addAll({
-                  catName[1]: [
-                    CarInfo(
-                        title: data['title'],
-                        image: data['image'],
-                        body: data['body'])
-                  ]
+                  catName[1]: [CarInfo(title: data['title'], image: data['image'], body: data['body'])]
                 });
               });
             }
@@ -85,12 +77,7 @@ class _HomePageState extends State<HomePage> {
       });
     }
 
-    List<Widget> contentBody = [
-      AddCategoryNewsPage(),
-      AddCarPage(),
-      StorePage(),
-      UserListPage()
-    ];
+    List<Widget> contentBody = [AddCategoryNewsPage(), AddCarPage(), StorePage(), UserListPage()];
 
     // List<Widget> contentBody = [
     //   homeBody(context),
@@ -103,13 +90,10 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Color(0xffF0EFF4),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
-
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Danh mục"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.directions_car), label: "Xe"),
+          BottomNavigationBarItem(icon: Icon(Icons.directions_car), label: "Xe"),
           BottomNavigationBarItem(icon: Icon(Icons.store), label: "Cửa hàng"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), label: "Admin"),
+          BottomNavigationBarItem(icon: Icon(Icons.account_circle), label: "Admin"),
 
           // BottomNavigationBarItem(icon: Icon(Icons.home), label: "Trang chủ"),
           // BottomNavigationBarItem(
@@ -164,18 +148,14 @@ class _HomePageState extends State<HomePage> {
         child: Container(
             margin: EdgeInsets.only(left: 15, top: 3, bottom: 2),
             decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 3)]),
+                color: Colors.white, borderRadius: BorderRadius.circular(15), boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 3)]),
             width: 250,
             height: 300,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ClipRRect(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      topRight: Radius.circular(15)),
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(15), topRight: Radius.circular(15)),
                   child: Image.network(
                     image,
                     fit: BoxFit.cover,
@@ -199,10 +179,7 @@ class _HomePageState extends State<HomePage> {
                         title,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w500),
+                        style: TextStyle(color: Colors.black, fontSize: 15, fontWeight: FontWeight.w500),
                       ),
                       SizedBox(
                         height: 5,
@@ -219,8 +196,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       OutlineButton(
                         borderSide: BorderSide(color: Color(0xffF2B248)),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25)),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
                         onPressed: () {
                           // Navigator.pushNamed(context, DetailPage.route, );
                           Navigator.push(
@@ -248,16 +224,13 @@ class _HomePageState extends State<HomePage> {
     String name = "";
     String profileImageUrl = "";
 
-    if (firebaseAuth.currentUser != null &&
-        firebaseAuth.currentUser.photoURL != null) {
+    if (firebaseAuth.currentUser != null && firebaseAuth.currentUser.photoURL != null) {
       profileImageUrl = firebaseAuth.currentUser.photoURL;
     }
 
-    if (firebaseAuth.currentUser != null &&
-        firebaseAuth.currentUser.displayName != null) {
+    if (firebaseAuth.currentUser != null && firebaseAuth.currentUser.displayName != null) {
       name = firebaseAuth.currentUser.displayName.split("%")[0];
-    } else if (firebaseAuth.currentUser != null &&
-        firebaseAuth.currentUser.email != null) {
+    } else if (firebaseAuth.currentUser != null && firebaseAuth.currentUser.email != null) {
       name = firebaseAuth.currentUser.email;
     } else {
       name = "Chưa đăng nhập";
@@ -279,21 +252,14 @@ class _HomePageState extends State<HomePage> {
                             height: 40,
                             margin: EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: AssetImage(
-                                        "assets/images/account1.jpg"),
-                                    fit: BoxFit.fill)),
+                                shape: BoxShape.circle, image: DecorationImage(image: AssetImage("assets/images/account1.jpg"), fit: BoxFit.fill)),
                           )
                         : Container(
                             width: 40,
                             height: 40,
                             margin: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                image: DecorationImage(
-                                    image: NetworkImage(profileImageUrl),
-                                    fit: BoxFit.fill)),
+                            decoration:
+                                BoxDecoration(shape: BoxShape.circle, image: DecorationImage(image: NetworkImage(profileImageUrl), fit: BoxFit.fill)),
                           ),
                   ),
                   Column(
@@ -363,8 +329,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Text(
                               "Tích điểm",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 11),
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
                             )
                           ],
                         ),
@@ -384,8 +349,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Text(
                               "Thuê xe",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 11),
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
                             )
                           ],
                         ),
@@ -405,8 +369,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Text(
                               "Coupon",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 11),
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
                             )
                           ],
                         ),
@@ -426,8 +389,7 @@ class _HomePageState extends State<HomePage> {
                             ),
                             Text(
                               "Rewads",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 11),
+                              style: TextStyle(fontWeight: FontWeight.w500, fontSize: 11),
                             )
                           ],
                         ),
@@ -450,8 +412,7 @@ class _HomePageState extends State<HomePage> {
                         },
                         child: Column(
                           children: [
-                            Image.asset("assets/images/score.PNG",
-                                width: 69, height: 69),
+                            Image.asset("assets/images/score.PNG", width: 69, height: 69),
                             Text(
                               "Tích điểm",
                               style: TextStyle(fontWeight: FontWeight.w500),
@@ -533,9 +494,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   Container(
                     padding: EdgeInsets.all(15),
-                    child: Text(e,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500)),
+                    child: Text(e, style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                   ),
                   SingleChildScrollView(
                     padding: EdgeInsets.only(right: 15),
@@ -544,10 +503,7 @@ class _HomePageState extends State<HomePage> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         ...mapCarInfo[e].map((e) {
-                          return _categoryOne(
-                              image: e.image,
-                              title: e.title,
-                              description: e.body);
+                          return _categoryOne(image: e.image, title: e.title, description: e.body);
                         }).toList()
                       ],
                     ),

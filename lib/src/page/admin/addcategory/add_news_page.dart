@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class AddCategoryNewsPage extends StatefulWidget {
   static const String route = "add_category_news";
@@ -18,6 +19,7 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   String errorMessageCategory = "";
   List<String> listCat = [];
+  var uuid = Uuid();
 
   @override
   void initState() {
@@ -48,6 +50,13 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
           return AlertDialog(
             title: Text("Lỗi"),
             content: Text(message),
+            actions: [
+              FlatButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("Thoát"))
+            ],
           );
         });
   }
@@ -154,6 +163,9 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
                                 padding: EdgeInsets.all(2),
                                 margin: EdgeInsets.symmetric(horizontal: 8),
                                 child: Chip(
+                                // backgroundColor: Colors.orange
+                                shadowColor: Colors.orange
+                                ,
                                   label: Text(
                                     e,
                                   ),
@@ -181,35 +193,39 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
                           hintText: "Nội dung",
                         ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Chọn mục",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          DropdownButton(
-                            items: [
-                              ...listCat
-                                  .map(
-                                    (e) => DropdownMenuItem(
-                                      child: Text(e),
-                                      value: listCat.indexOf(e),
-                                    ),
-                                  )
-                                  .toList()
-                            ],
-                            onChanged: (v) {
-                              setState(() {
-                                catIndex = v;
-                              });
-                            },
-                            value: catIndex,
-                          )
-                        ],
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "Chọn mục",
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            DropdownButton(
+                              items: [
+                                ...listCat
+                                    .map(
+                                      (e) => DropdownMenuItem(
+                                        child: Text(e),
+                                        value: listCat.indexOf(e),
+                                      ),
+                                    )
+                                    .toList()
+                              ],
+                              onChanged: (v) {
+                                setState(() {
+                                  catIndex = v;
+                                });
+                              },
+                              value: catIndex,
+                            )
+                          ],
+                        ),
                       ),
                       Container(
                         width: double.infinity,
+                        margin: EdgeInsets.only(top: 10),
                         child: FlatButton(
                           onPressed: () {
                             String title = textTitleEditingController.text;
@@ -219,6 +235,37 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
                               showMessageError(message: "Tiêu đề không được trống");
                             } else if (content.length == 0) {
                               showMessageError(message: "Nội dung không được trống");
+                            }
+                            if (title.length > 0 && content.length > 0) {
+                              var uuidV4 = uuid.v4();
+                              print(uuidV4);
+                              print("cat-${listCat[catIndex]}-$uuidV4");
+                              // structure cat-catname-uuid
+                              // add firebase here men
+                              String docuemntPath = "cat-${listCat[catIndex]}-$uuidV4";
+                              firebaseFirestore
+                                  .collection("car_rent/")
+                                  .doc(docuemntPath)
+                                  .set({"body": content, "image": "", "title": title}).then((v) {
+                                print("add success");
+                                textTitleEditingController.text = "";
+                                textContentEditingController.text = "";
+                                showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title: Text("Thông báo"),
+                                        content: Text("Thêm category thành công"),
+                                        actions: [
+                                          FlatButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text("Thoát")),
+                                        ],
+                                      );
+                                    });
+                              });
                             }
                           },
                           child: Text(
