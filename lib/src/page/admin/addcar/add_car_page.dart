@@ -142,36 +142,33 @@ class _AddCarPageState extends State<AddCarPage> {
 
                         DateTime date = DateTime.now();
 
-                        firebaseFirestore
-                            .collection(collection)
-                            .add({
-                              "car_owner": "",
-                              "car_title": title,
-                              "create_date": date.toString(),
-                              "desc": content,
-                              "image": "",
-                              "phone_owner": "",
-                              "update_date": "",
-                              "user_post": ""
-                            })
-                            .then((value) {
+                        firebaseFirestore.collection(collection).add({
+                          "car_owner": "",
+                          "car_title": title,
+                          "create_date": date.toString(),
+                          "desc": content,
+                          "image": "",
+                          "phone_owner": "",
+                          "update_date": "",
+                          "user_post": ""
+                        }).then((value) {
                           print(value);
                           titleAddCar.text = "";
                           descriptionAddCar.text = "";
-                          showDialog(context: context, builder: (content)=>
-                            AlertDialog(
-                              title: Text("Thông báo"),
-                              content: Text("Thêm xe thành công"),
-                              actions: [
-                                FlatButton(onPressed: (){
-                                  Navigator.pop(context);
-                                }, child: Text("Thoát"))
-                              ],
-                            )
-                          );
-                        })
-                            .catchError((err) => print(err));
-
+                          showDialog(
+                              context: context,
+                              builder: (content) => AlertDialog(
+                                    title: Text("Thông báo"),
+                                    content: Text("Thêm xe thành công"),
+                                    actions: [
+                                      FlatButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text("Thoát"))
+                                    ],
+                                  ));
+                        }).catchError((err) => print(err));
                       }
                     },
                     child: Text(

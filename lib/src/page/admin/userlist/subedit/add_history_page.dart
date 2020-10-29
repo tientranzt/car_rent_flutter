@@ -55,7 +55,7 @@ class _AddHistoryPageState extends State<AddHistoryPage> {
       ),
       body: SingleChildScrollView(
         child: Column(
-          children: List.generate(5, (index) {
+          children: List.generate(3, (index) {
             return ListTile(
               title: Text("Nguyễn Văn $index"),
               subtitle: Text("Tuyến Cần Thơ - Cà Mau - $index"),

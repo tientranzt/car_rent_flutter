@@ -36,8 +36,7 @@ class _AddScorePageState extends State<AddScorePage> {
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               TextField(
-                                decoration:
-                                    InputDecoration(hintText: "Nhập điểm"),
+                                decoration: InputDecoration(hintText: "Nhập điểm"),
                               ),
                               FlatButton(
                                 onPressed: () {},
@@ -56,7 +55,7 @@ class _AddScorePageState extends State<AddScorePage> {
         ),
         body: SingleChildScrollView(
           child: Column(
-            children: List.generate(5, (index) {
+            children: List.generate(3, (index) {
               return ListTile(
                 title: Text("Update at 13:3$index"),
                 subtitle: Text("username - score ${index + 5}"),

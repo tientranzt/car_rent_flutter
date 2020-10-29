@@ -36,25 +36,13 @@ class _ImageEditPageState extends State<ImageEditPage> {
               fit: BoxFit.cover,
             ),
             Image.asset(
-              "assets/images/car1.jpg",
+              "assets/images/car0.jpg",
               height: 100,
               width: 100,
               fit: BoxFit.cover,
             ),
             Image.asset(
-              "assets/images/car2.jpg",
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
-            Image.asset(
-              "assets/images/car3.jpg",
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
-            Image.asset(
-              "assets/images/car4.jpg",
+              "assets/images/car0.jpg",
               height: 100,
               width: 100,
               fit: BoxFit.cover,
