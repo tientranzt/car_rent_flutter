@@ -9,6 +9,7 @@ class AddScorePage extends StatefulWidget {
 class _AddScorePageState extends State<AddScorePage> {
   @override
   Widget build(BuildContext context) {
+    Scaffold.of(context).showSnackBar(SnackBar(content: Text("Show snack")));
     return Scaffold(
         backgroundColor: Color(0xffF0EFF4),
         appBar: AppBar(
