@@ -11,6 +11,24 @@ class _AddCarPageState extends State<AddCarPage> {
   TextEditingController titleAddCar = TextEditingController();
   TextEditingController descriptionAddCar = TextEditingController();
 
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
+  showMessageError({String message}) async {
+    showDialog(context: context, builder: (context){
+      return AlertDialog(
+        title: Text("Lỗi"),
+        content: Text(message),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

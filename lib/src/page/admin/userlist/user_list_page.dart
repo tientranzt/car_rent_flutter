@@ -19,8 +19,6 @@ class _UserListPageState extends State<UserListPage> {
 
   @override
   Widget build(BuildContext context) {
-
-
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -68,7 +66,9 @@ class _UserListPageState extends State<UserListPage> {
                                     "Sửa ảnh",
                                     style: TextStyle(color: Colors.white),
                                   )),
-                              SizedBox(width: 10,),
+                              SizedBox(
+                                width: 10,
+                              ),
                               FlatButton(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5)),
@@ -84,7 +84,9 @@ class _UserListPageState extends State<UserListPage> {
                                     "Lịch sử",
                                     style: TextStyle(color: Colors.white),
                                   )),
-                              SizedBox(width: 10,),
+                              SizedBox(
+                                width: 10,
+                              ),
                               FlatButton(
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(5)),
