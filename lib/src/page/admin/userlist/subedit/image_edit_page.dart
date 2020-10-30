@@ -6,6 +6,8 @@ class ImageEditPage extends StatefulWidget {
 }
 
 class _ImageEditPageState extends State<ImageEditPage> {
+  List<String> listImage = ["1", "2", "3", "4", "5"];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,24 +31,36 @@ class _ImageEditPageState extends State<ImageEditPage> {
           runSpacing: 15,
           crossAxisAlignment: WrapCrossAlignment.start,
           children: [
-            Image.asset(
-              "assets/images/car0.jpg",
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
-            Image.asset(
-              "assets/images/car0.jpg",
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
-            Image.asset(
-              "assets/images/car0.jpg",
-              height: 100,
-              width: 100,
-              fit: BoxFit.cover,
-            ),
+            ...listImage
+                .map((e) => Stack(
+                      fit: StackFit.loose,
+                      children: [
+                        Image.asset(
+                          "assets/images/car0.jpg",
+                          height: 100,
+                          width: 100,
+                          fit: BoxFit.cover,
+                        ),
+                        Positioned(
+                          top: 3,
+                          right: 3,
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                listImage.removeAt(listImage.indexOf(e));
+                              });
+                            },
+                            child: Container(
+                              child: Icon(
+                                Icons.highlight_remove_outlined,
+                                color: Colors.redAccent,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ))
+                .toList()
           ],
         ),
       ),
