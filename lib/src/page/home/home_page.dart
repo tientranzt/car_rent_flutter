@@ -125,15 +125,12 @@ class _HomePageState extends State<HomePage> {
     Widget _categoryOne({String image, String title, String description}) {
       //fix for length of description not enought 3 lines
       var des = description;
-
       if (des.length < 30) {
         des += "\n\n";
       }
-
       if (des.length < 50) {
         des += "\n";
       }
-
       return GestureDetector(
         onTap: () {
           Navigator.push(
