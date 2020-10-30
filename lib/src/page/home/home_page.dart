@@ -148,7 +148,9 @@ class _HomePageState extends State<HomePage> {
         child: Container(
             margin: EdgeInsets.only(left: 15, top: 3, bottom: 2),
             decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(15), boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 3)]),
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(15),
+                boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 3)]),
             width: 250,
             height: 300,
             child: Column(
@@ -252,14 +254,16 @@ class _HomePageState extends State<HomePage> {
                             height: 40,
                             margin: EdgeInsets.all(5),
                             decoration: BoxDecoration(
-                                shape: BoxShape.circle, image: DecorationImage(image: AssetImage("assets/images/account1.jpg"), fit: BoxFit.fill)),
+                                shape: BoxShape.circle,
+                                image: DecorationImage(image: AssetImage("assets/images/account1.jpg"), fit: BoxFit.fill)),
                           )
                         : Container(
                             width: 40,
                             height: 40,
                             margin: EdgeInsets.all(5),
-                            decoration:
-                                BoxDecoration(shape: BoxShape.circle, image: DecorationImage(image: NetworkImage(profileImageUrl), fit: BoxFit.fill)),
+                            decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(image: NetworkImage(profileImageUrl), fit: BoxFit.fill)),
                           ),
                   ),
                   Column(

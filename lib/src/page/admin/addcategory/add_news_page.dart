@@ -31,10 +31,7 @@ class _AddCategoryNewsPageState extends State<AddCategoryNewsPage> {
   fetchCategory() async {
     listCat = [];
     firebaseFirestore.collection("category").get().then((value) {
-      print(value.docs);
-
       value.docs.forEach((element) {
-        print(element.data().keys.toString());
         String data = element.data().values.toString();
         setState(() {
           listCat.add(data.substring(1, data.length - 1));
