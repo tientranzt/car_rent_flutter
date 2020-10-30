@@ -42,8 +42,8 @@ class _ImageEditPageState extends State<ImageEditPage> {
                           fit: BoxFit.cover,
                         ),
                         Positioned(
-                          top: 3,
-                          right: 3,
+                          top: 2,
+                          right: 2,
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
